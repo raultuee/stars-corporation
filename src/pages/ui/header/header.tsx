@@ -9,7 +9,7 @@ export function Header() {
       <section className="flex justify-center mt-5 mb-5">
         <a href="/landing-page">
           <section className="mr-10 flex text-center">
-            <h1 className="mt-[7px] tracking-tight font-bold text-xl">T-SHIRT'S</h1>
+            <h1 className="mt-[7px] tracking-tight font-extrabold text-xl">T-SHIRT'S</h1>
           </section>
         </a>
         <Separator orientation="vertical" className="h-[40px]" />

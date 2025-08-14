@@ -4,7 +4,6 @@ import { ThemeProvider } from './pages/theme/theme-provider';
 
 import { Toaster } from 'sonner';
 import { Error } from './pages/error';
-import { Dashboard } from './pages/ui/dashboard/dashboard';
 import { Header } from './pages/ui/header/header';
 import { Home } from './pages/home';
 import { LoadingPage } from './utils/loading-page';
@@ -20,7 +19,6 @@ export function App() {
       <Router>
         <Header />
           <Routes>
-            <Route path='/dashboard' element={<Dashboard/>}/>
 
             <Route path='/loading' element={<LoadingPage/>}/>
 

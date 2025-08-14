@@ -9,9 +9,9 @@ export function Error() {
         Um erro aconteceu na aplicação, por favor, tente novamente.
       </p>
       <p className="text-accent-foreground">
-        Voltar para o{' '}
-        <Link to="/dashboard" className="text-sky-600 dark:text-sky-400 font-semibold">
-          Dashboard
+        Voltar para a{' '}
+        <Link to="/home" className="text-sky-600 dark:text-sky-400 font-semibold">
+          Loja
         </Link>
       </p>
     </div>
