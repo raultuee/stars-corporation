@@ -7,6 +7,7 @@ import { Error } from './pages/error';
 import { Header } from './pages/ui/header/header';
 import { Home } from './pages/home';
 import { LoadingPage } from './utils/loading-page';
+import { ProdutoPage } from './pages/ProdutoPage';
 
 export function App() {
 
@@ -23,6 +24,8 @@ export function App() {
             <Route path='/loading' element={<LoadingPage/>}/>
 
             <Route path='/' element={<Home/>}/>
+
+            <Route path="/produto/:slug" element={<ProdutoPage />} />
 
             <Route path='*' element={<Error />} />
 

@@ -54,14 +54,17 @@ function MaisCurtidas() {
     {
       img: MaisVendido1,
       title: "Camiseta Starboy #1",
+      url: "/produto/starboy1",
     },
     {
       img: MaisVendido2,
       title: "Camiseta Starboy #2",
+      url: "/produto/starboy2",
     },
     {
       img: MaisVendido3,
       title: "Camiseta Starboy #3",
+      url: "/produto/starboy3",
     },
   ];
 
@@ -90,7 +93,12 @@ function MaisCurtidas() {
           />
           <h2 className="text-xl font-semibold text-center mt-5 mb-5">{cards[current].title}</h2>
           <div className="flex gap-2">
-            <Button className="w-[150px]">Visualizar item</Button>
+            <Button
+              className="w-[150px]"
+              onClick={() => window.location.href = cards[current].url}
+            >
+              Visualizar item
+            </Button>
             <Button variant="secondary">
               <Heart />
             </Button>
@@ -118,7 +126,12 @@ function MaisCurtidas() {
             />
             <h2 className="text-xl font-semibold text-center mt-5 mb-5">{card.title}</h2>
             <div className="flex gap-2">
-              <Button className="w-[200px]">Visualizar item</Button>
+              <Button
+                className="w-[200px]"
+                onClick={() => window.location.href = card.url}
+              >
+                Visualizar item
+              </Button>
               <Button variant="secondary">
                 <Heart />
               </Button>
@@ -133,7 +146,7 @@ function MaisCurtidas() {
 
 export function Home() {
   return (
-    <div className="min-w-screen min-h-screen flex flex-col gap-20 bg-white items-center mb-[200px]">
+    <div className="min-w-screen min-h-screen flex flex-col gap-10 sm:gap-10 md:gap-20 lg:gap-20 xl:gap-20 bg-white items-center mb-[200px]">
       <Propagandas/>
       <Linhas/>
       <MaisCurtidas/>
