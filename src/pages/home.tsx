@@ -7,11 +7,14 @@ import THISHIRTSLOGO from '../assets/THISHIRTS.png'
 import STREETLOGO from '../assets/STREET.png'
 
 import Banner1 from '../assets/banners/banner1.png'
-import Banner2 from '../assets/banners/banner2.png'
 
 import MaisVendido1 from '../assets/mais-vendidos/starboy1.png'
+import MaisVendido2 from '../assets/mais-vendidos/starboy2.png'
+import MaisVendido3 from '../assets/mais-vendidos/starboy3.png'
+
 import { Button } from "@/components/ui/button"
 import { Heart } from "lucide-react"
+import { useState } from "react"
 
 
 function Propagandas() {
@@ -20,12 +23,7 @@ function Propagandas() {
   })
   return (
     <div ref={ref} className="keen-slider">
-      <div className="keen-slider__slide number-slide1 text-center w-full h-[450px] bg-green-500"><img src={Banner1} alt="Banner 1" /></div>
-      <div className="keen-slider__slide number-slide2 text-center w-full h-[450px] bg-red-500"><img src={Banner2} alt="Banner 2" /></div>
-      <div className="keen-slider__slide number-slide3 text-center w-full h-[450px] bg-orange-500"></div>
-      <div className="keen-slider__slide number-slide4 text-center w-full h-[450px] bg-yellow-500"></div>
-      <div className="keen-slider__slide number-slide5 text-center w-full h-[450px] bg-purple-500"></div>
-      <div className="keen-slider__slide number-slide6 text-center w-full h-[450px] bg-blue-500"></div>
+      <div className="keen-slider__slide number-slide1 text-center w-full max-h-[450px] bg-green-500"><img src={Banner1} alt="Banner 1" /></div>
     </div>
   )
 }
@@ -33,8 +31,8 @@ function Propagandas() {
 function Linhas() {
   return (
     <div className="mt-20 w-full">
-      <h1 className="text-3xl font-bold mb-[70px] uppercase ml-[200px]">Linhas Lançamento</h1>
-      <div className="flex grid-cols-3 items-center justify-center gap-5">
+      <h1 className="text-2xl text-center sm:text-2xl sm:text-center md:text-3xl md:text-center lg:text-3xl lg:ml-[200px] lg:text-start lg:mb-[70px] xl:text-3xl xl:ml-[200px] xl:text-start xl:mb-[70px] font-bold uppercase mb-10">Linhas Lançamento</h1>
+      <div className="flex lg:grid-cols-3 xl:grid-cols-3 items-center justify-center gap-5">
         <Card className="w-[370px] h-[100px] flex items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg">
           <img src={GODISALIVELOGO} alt="GODISALIVELOGO" className="mt-4"/>
         </Card>
@@ -50,40 +48,86 @@ function Linhas() {
 }
 
 function MaisCurtidas() {
+  const [current, setCurrent] = useState(0);
+
+  const cards = [
+    {
+      img: MaisVendido1,
+      title: "Camiseta Starboy #1",
+    },
+    {
+      img: MaisVendido2,
+      title: "Camiseta Starboy #2",
+    },
+    {
+      img: MaisVendido3,
+      title: "Camiseta Starboy #3",
+    },
+  ];
+
+  const handlePrev = () => setCurrent((prev: number) => (prev === 0 ? cards.length - 1 : prev - 1));
+  const handleNext = () => setCurrent((prev: number) => (prev === cards.length - 1 ? 0 : prev + 1));
+
   return (
     <div className="mt-20 w-full">
-      <h1 className="text-3xl font-bold mb-[70px] uppercase ml-[200px]">Mais Curtidas</h1>
-      <div className="flex grid-cols-3 items-center justify-center gap-5">
-        <Card className="w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg">
-          <img src={MaisVendido1} alt="Mais Vendido 1" className="w-[300px] h-[300px] object-cover mb-4" />
-          <h2 className="text-xl font-semibold text-center mt-5 mb-5">Camiseta Starboy #1</h2>
+      <h1 className="text-2xl text-center sm:text-2xl sm:text-center md:text-3xl md:text-center lg:text-3xl lg:ml-[200px] lg:text-start lg:mb-[70px] xl:text-3xl xl:ml-[200px] xl:text-start xl:mb-[70px] font-bold uppercase mb-10">
+        Mais Curtidas
+      </h1>
+      {/* Mobile: apenas 1 card, com botões laterais */}
+      <div className="flex items-center justify-center gap-5 sm:hidden">
+        <button
+          onClick={handlePrev}
+          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          aria-label="Anterior"
+        >
+          &#8592;
+        </button>
+        <Card className="w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg">
+          <img
+            src={cards[current].img}
+            alt={cards[current].title}
+            className="w-[220px] h-[220px] object-cover mb-4"
+          />
+          <h2 className="text-xl font-semibold text-center mt-5 mb-5">{cards[current].title}</h2>
           <div className="flex gap-2">
-            <Button className="w-[200px]">Visualizar item</Button>
-            <Button variant="secondary"><Heart/></Button>
+            <Button className="w-[150px]">Visualizar item</Button>
+            <Button variant="secondary">
+              <Heart />
+            </Button>
           </div>
         </Card>
-
-        <Card className="w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg">
-          <img src={MaisVendido1} alt="Mais Vendido 1" className="w-[300px] h-[300px] object-cover mb-4" />
-          <h2 className="text-xl font-semibold text-center mt-5 mb-5">Camiseta Starboy #1</h2>
-          <div className="flex gap-2">
-            <Button className="w-[200px]">Visualizar item</Button>
-            <Button variant="secondary"><Heart/></Button>
-          </div>
-        </Card>
-
-        <Card className="w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg">
-          <img src={MaisVendido1} alt="Mais Vendido 1" className="w-[300px] h-[300px] object-cover mb-4" />
-          <h2 className="text-xl font-semibold text-center mt-5 mb-5">Camiseta Starboy #1</h2>
-          <div className="flex gap-2">
-            <Button className="w-[200px]">Visualizar item</Button>
-            <Button variant="secondary"><Heart/></Button>
-          </div>
-        </Card>
-        
+        <button
+          onClick={handleNext}
+          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          aria-label="Próximo"
+        >
+          &#8594;
+        </button>
+      </div>
+      {/* Desktop: todos os cards */}
+      <div className="hidden sm:flex grid-cols-3 items-center justify-center gap-5">
+        {cards.map((card, idx) => (
+          <Card
+            key={idx}
+            className="w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
+          >
+            <img
+              src={card.img}
+              alt={card.title}
+              className="w-[300px] h-[300px] object-cover mb-4"
+            />
+            <h2 className="text-xl font-semibold text-center mt-5 mb-5">{card.title}</h2>
+            <div className="flex gap-2">
+              <Button className="w-[200px]">Visualizar item</Button>
+              <Button variant="secondary">
+                <Heart />
+              </Button>
+            </div>
+          </Card>
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
 
