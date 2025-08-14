@@ -12,6 +12,9 @@ import MaisVendido1 from '../assets/mais-vendidos/starboy1.png'
 import MaisVendido2 from '../assets/mais-vendidos/starboy2.png'
 import MaisVendido3 from '../assets/mais-vendidos/starboy3.png'
 
+import MaisVendido1Costas from '../assets/produtos/starboy1-back.png'
+import MaisVendido2Costas from '../assets/produtos/starboy-2-back.png'
+
 import { Button } from "@/components/ui/button"
 import { Heart } from "lucide-react"
 import { useState } from "react"
@@ -49,15 +52,18 @@ function Linhas() {
 
 function MaisCurtidas() {
   const [current, setCurrent] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
   const cards = [
     {
       img: MaisVendido1,
+      imgSec: MaisVendido1Costas,
       title: "Camiseta Starboy #1",
       url: "/produto/starboy1",
     },
     {
       img: MaisVendido2,
+      imgSec: MaisVendido2Costas,
       title: "Camiseta Starboy #2",
       url: "/produto/starboy2",
     },
@@ -85,12 +91,21 @@ function MaisCurtidas() {
         >
           &#8592;
         </button>
-        <Card className="w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg">
-          <img
-            src={cards[current].img}
-            alt={cards[current].title}
-            className="w-[220px] h-[220px] object-cover mb-4"
-          />
+        <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg relative">
+          <div className="relative w-[220px] h-[220px] mb-4">
+            <img
+              src={cards[current].img}
+              alt={cards[current].title}
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0"
+            />
+            {cards[current].imgSec && (
+              <img
+                src={cards[current].imgSec}
+                alt={cards[current].title + ' costas'}
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+              />
+            )}
+          </div>
           <h2 className="text-xl font-semibold text-center mt-5 mb-5">{cards[current].title}</h2>
           <div className="flex gap-2">
             <Button
@@ -99,7 +114,10 @@ function MaisCurtidas() {
             >
               Visualizar item
             </Button>
-            <Button variant="secondary">
+            <Button
+              onClick={() => setIsLiked(!isLiked)}
+              variant={isLiked ? "default" : "secondary"}
+            >
               <Heart />
             </Button>
           </div>
@@ -117,13 +135,26 @@ function MaisCurtidas() {
         {cards.map((card, idx) => (
           <Card
             key={idx}
-            className="w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
+            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
           >
-            <img
-              src={card.img}
-              alt={card.title}
-              className="w-[300px] h-[300px] object-cover mb-4"
-            />
+            <div className="relative w-[300px] h-[300px] mb-4">
+              <img
+                src={card.img}
+                alt={card.title}
+                className={
+                  card.imgSec
+                    ? "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0"
+                    : "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-100"
+                }
+              />
+              {card.imgSec && (
+                <img
+                  src={card.imgSec}
+                  alt={card.title + ' costas'}
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                />
+              )}
+            </div>
             <h2 className="text-xl font-semibold text-center mt-5 mb-5">{card.title}</h2>
             <div className="flex gap-2">
               <Button

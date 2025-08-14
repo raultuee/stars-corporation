@@ -8,6 +8,7 @@ import { Header } from './pages/ui/header/header';
 import { Home } from './pages/home';
 import { LoadingPage } from './utils/loading-page';
 import { ProdutoPage } from './pages/ProdutoPage';
+import { Catalogo } from './pages/catalogo';
 
 export function App() {
 
@@ -24,6 +25,8 @@ export function App() {
             <Route path='/loading' element={<LoadingPage/>}/>
 
             <Route path='/' element={<Home/>}/>
+
+            <Route path='/catalogo' element={<Catalogo/>}/>
 
             <Route path="/produto/:slug" element={<ProdutoPage />} />
 

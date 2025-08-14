@@ -41,9 +41,11 @@ export function Header() {
               </Button>
             </div>
             <div>
-              <Button className="w-[150px] mt-[2px] ml-5 mr-5">
-                Apoiar equipe
-              </Button>
+              <a href="/catalogo">
+                <Button className="w-[150px] mt-[2px] ml-5 mr-5">
+                  Acessar catálogo
+                </Button>
+              </a>
             </div>
           </section>
         </div>
