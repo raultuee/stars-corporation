@@ -2,18 +2,36 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Search } from "lucide-react";
+import { useState } from "react";
 
 function HeaderSmall() {
+  const [showSearch, setShowSearch] = useState(false);
+
   return (
     <div className="sticky top-0 z-50 flex flex-col justify-center items-center w-full bg-white border-b border-gray-200">
       {/* Conteúdo do header para mobile */}
-      <section className="flex justify-between items-center w-full px-4 py-3">
+      <section className="flex items-center w-full px-4 py-3 gap-5">
         <a href="/">
           <h1 className="tracking-tight font-extrabold text-lg">T-SHIRT'S</h1>
         </a>
-        <Button size="icon" variant="ghost">
-          <Search />
-        </Button>
+
+        <div className="relative ml-auto">
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => setShowSearch((v) => !v)}
+          >
+            <Search />
+          </Button>
+          {showSearch && (
+            <Input
+              autoFocus
+              className="absolute right-0 top-12 w-48 shadow-lg"
+              placeholder="Pesquisar..."
+              onBlur={() => setShowSearch(false)}
+            />
+          )}
+        </div>
       </section>
     </div>
   );

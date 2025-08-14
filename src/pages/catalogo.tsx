@@ -6,7 +6,7 @@ import { Heart } from "lucide-react";
 export function Catalogo() {
   return (
     <div className="min-h-screen w-full flex flex-col px-4">
-      <h1 className="text-3xl font-bold uppercase my-10 text-start ml-[200px]">Catálogo de Camisetas</h1>
+      <h1 className="text-3xl font-bold uppercase my-10 text-center sm:text-center md:ml-[200px] md:text-start lg:ml-[200px] lg:text-start xl:ml-[200px] xl:text-start">Catálogo de Camisetas</h1>
       <div className="flex flex-col items-center justify-center mb-10">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl">
             {camisetas.map((camiseta) => (

@@ -181,6 +181,11 @@ export function Home() {
       <Propagandas/>
       <Linhas/>
       <MaisCurtidas/>
+
+      
+        <a href="/catalogo" className="ml-10 sm:block md:hidden lg:hidden xl:hidden">
+          <Button variant="outline">Catálogo</Button>
+        </a>
     </div>
   )
 }
