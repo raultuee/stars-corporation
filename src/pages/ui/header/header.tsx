@@ -8,7 +8,7 @@ function HeaderSmall() {
     <div className="sticky top-0 z-50 flex flex-col justify-center items-center w-full bg-white border-b border-gray-200">
       {/* Conteúdo do header para mobile */}
       <section className="flex justify-between items-center w-full px-4 py-3">
-        <a href="/landing-page">
+        <a href="/">
           <h1 className="tracking-tight font-extrabold text-lg">T-SHIRT'S</h1>
         </a>
         <Button size="icon" variant="ghost">
