@@ -31,9 +31,9 @@ export function Catalogo() {
           {camisetas.map((camiseta) => (
             <Card
               key={camiseta.id}
-              className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg mx-auto"
+              className="group w-[320px] h-[400px] sm:w-[400px] sm:h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg mx-auto"
             >
-              <div className="relative w-[300px] h-[300px] mb-4">
+              <div className="relative w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] mb-4">
                 <img
                   src={camiseta.imagem}
                   alt={camiseta.nome}
@@ -57,7 +57,7 @@ export function Catalogo() {
               </h2>
               <div className="flex gap-2 items-center">
                 <Button
-                  className="w-[200px]"
+                  className="xl:w-[200px]"
                   onClick={() => (window.location.href = `/produto/${camiseta.slug}`)}
                 >
                   Visualizar item
