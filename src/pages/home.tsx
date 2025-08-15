@@ -7,6 +7,8 @@ import THISHIRTSLOGO from '../assets/THISHIRTS.png'
 import STREETLOGO from '../assets/STREET.png'
 
 import Banner1 from '../assets/banners/banner1.png'
+import Banner2 from '../assets/banners/banner2.png'
+import Banner3 from '../assets/banners/banner3.png'
 
 import MaisVendido1 from '../assets/mais-vendidos/starboy1.png'
 import MaisVendido2 from '../assets/mais-vendidos/starboy2.png'
@@ -23,10 +25,19 @@ import { useState } from "react"
 function Propagandas() {
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: true,
+    created(slider) {
+      setInterval(() => {
+        if (slider) {
+          slider.next();
+        }
+      }, 4000);
+    },
   })
   return (
     <div ref={ref} className="keen-slider">
-      <div className="keen-slider__slide number-slide1 text-center w-full max-h-[450px] bg-green-500"><img src={Banner1} alt="Banner 1" /></div>
+      <div className="keen-slider__slide number-slide1 text-center w-full max-h-[450px]"><img src={Banner1} alt="Banner 1" /></div>
+      <div className="keen-slider__slide number-slide2 text-center w-full max-h-[450px]"><img src={Banner2} alt="Banner 2" /></div>
+      <div className="keen-slider__slide number-slide3 text-center w-full max-h-[450px]"><img src={Banner3} alt="Banner 3" /></div>
     </div>
   )
 }
@@ -174,6 +185,13 @@ function MaisCurtidas() {
   );
 }
 
+function Fornecedores() {
+  return (
+    <div className="w-full">
+      <img src={Banner3} alt="" />
+    </div>
+  )
+}
 
 export function Home() {
   return (
@@ -181,6 +199,7 @@ export function Home() {
       <Propagandas/>
       <Linhas/>
       <MaisCurtidas/>
+      <Fornecedores/>
 
       
         <a href="/catalogo" className="ml-10 sm:block md:hidden lg:hidden xl:hidden">
