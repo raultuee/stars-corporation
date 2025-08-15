@@ -15,6 +15,7 @@ import { Heart } from "lucide-react"
 import { useState, useEffect } from "react"
 import { getLikes, setLikes } from "../utils/likes";
 import { camisetas } from "../data/camisetas";
+import { Badge } from "@/components/ui/badge"
 
 
 function Propagandas() {
@@ -134,7 +135,9 @@ function MaisCurtidas() {
               >
                 <Heart />
               </Button>
-              <span className="ml-2 text-sm">{likes[top3[current].id] || 0} curtidas</span>
+              <Badge className="ml-2" variant="secondary">
+                  {likes[top3[current].id] || 0} curtidas
+                </Badge>
             </div>
           </Card>
         )}
@@ -186,7 +189,9 @@ function MaisCurtidas() {
               >
                 <Heart />
               </Button>
-              <span className="ml-2 text-sm">{likes[card.id] || 0} curtidas</span>
+              <Badge className="ml-2" variant="secondary">
+                  {likes[card.id] || 0} curtidas
+                </Badge>
             </div>
           </Card>
         ))}
