@@ -3,8 +3,24 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
+import { getLikes, setLikes } from "../utils/likes";
 
 export function Catalogo() {
+  const [likes, setLikesState] = useState<Record<string, number>>({});
+  const [isLiked, setIsLiked] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    setLikesState(getLikes());
+  }, []);
+
+  function handleLike(id: string) {
+    const newLikes = { ...likes, [id]: (likes[id] || 0) + 1 };
+    setLikes(newLikes);
+    setLikesState(newLikes);
+    setIsLiked({ ...isLiked, [id]: true });
+  }
+
   return (
     <div className="min-h-screen w-full flex flex-col px-4">
       <h1 className="text-3xl font-bold uppercase my-10 text-center sm:text-center md:ml-[200px] md:text-start lg:ml-[200px] lg:text-start xl:ml-[200px] xl:text-start">
@@ -39,16 +55,23 @@ export function Catalogo() {
               <h2 className="text-xl font-semibold text-center mb-3">
                 {camiseta.nome}
               </h2>
-              <div className="flex gap-2">
+              <div className="flex gap-2 items-center">
                 <Button
                   className="w-[200px]"
                   onClick={() => (window.location.href = `/produto/${camiseta.slug}`)}
                 >
                   Visualizar item
                 </Button>
-                <Button variant="secondary">
+                <Button
+                  variant={isLiked[camiseta.id] ? "default" : "secondary"}
+                  onClick={() => handleLike(camiseta.id)}
+                  disabled={isLiked[camiseta.id]}
+                >
                   <Heart />
                 </Button>
+                <Badge className="ml-2" variant="secondary">
+                  {likes[camiseta.id] || 0} curtidas
+                </Badge>
               </div>
             </Card>
           ))}

@@ -32,12 +32,12 @@ export type Camiseta = {
   id: string;
   slug: string;
   nome: string;
-  descricao?: string;
+  descricao: string;
   preco: number;
   imagem: string;
   imagemSec?: string;
   colecao?: string;
-  // Adicione outros campos necessários, como tamanhos, cores, etc.
+  likes: number; // <-- novo campo
 };
 
 export const camisetas: Camiseta[] = [
@@ -50,6 +50,7 @@ export const camisetas: Camiseta[] = [
     imagem: starboy1Img,
     imagemSec: starboy1secImg,
     colecao: "Starboy",
+    likes: 0,
   },
   {
     id: "2",
@@ -60,6 +61,7 @@ export const camisetas: Camiseta[] = [
     imagem: starboy2Img,
     imagemSec: starboy2secImg,
     colecao: "Starboy",
+    likes: 0,
   },
   {
     id: "3",
@@ -69,6 +71,7 @@ export const camisetas: Camiseta[] = [
     preco: 99.9,
     imagem: starboy3Img,
     colecao: "Starboy",
+    likes: 0,
   },
   {
     id: "4",
@@ -79,6 +82,7 @@ export const camisetas: Camiseta[] = [
     imagem: street1Img,
     imagemSec: street1secImg,
     colecao: "Street",
+    likes: 0,
   },
   {
     id: "5",
@@ -89,6 +93,7 @@ export const camisetas: Camiseta[] = [
     imagem: street2Img,
     imagemSec: street2secImg,
     colecao: "Street",
+    likes: 0,
   },
   {
     id: "6",
@@ -99,6 +104,7 @@ export const camisetas: Camiseta[] = [
     imagem: tones1Img,
     imagemSec: tones1secImg,
     colecao: "Tones",
+    likes: 0,
   },
   {
     id: "7",
@@ -109,6 +115,7 @@ export const camisetas: Camiseta[] = [
     imagem: tones2Img,
     imagemSec: tones2secImg,
     colecao: "Tones",
+    likes: 0,
   },
   {
     id: "8",
@@ -119,6 +126,7 @@ export const camisetas: Camiseta[] = [
     imagem: tones3Img,
     imagemSec: tones3secImg,
     colecao: "Tones",
+    likes: 0,
   },
   {
     id: "9",
@@ -129,6 +137,7 @@ export const camisetas: Camiseta[] = [
     imagem: geo1Img,
     imagemSec: geo1secImg,
     colecao: "Geo",
+    likes: 0,
   },
   {
     id: "10",
@@ -139,6 +148,7 @@ export const camisetas: Camiseta[] = [
     imagem: geo2Img,
     imagemSec: geo2secImg,
     colecao: "Geo",
+    likes: 0,
   },
   // ...adicione mais camisetas aqui
 ];
