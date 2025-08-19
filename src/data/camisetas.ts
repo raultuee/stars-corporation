@@ -25,6 +25,15 @@ import geo2Img from "../assets/produtos/geo2.png";
 import geo1secImg from "../assets/produtos/geo-1-back.png";
 import geo2secImg from "../assets/produtos/geo-2-back.png";
 
+import adrenaline1Img from "../assets/produtos/adrenaline1.png";
+import adrenaline1secImg from "../assets/produtos/adrenaline-1-back.png";
+
+import adrenaline2Img from "../assets/produtos/adrenaline2.png";
+import adrenaline2secImg from "../assets/produtos/adrenaline-2-back.png";
+
+import ceberusImg from "../assets/produtos/ceberus.png";
+import ceberusSecImg from "../assets/produtos/ceberus-back.png";
+
 
 
 
@@ -148,6 +157,39 @@ export const camisetas: Camiseta[] = [
     imagem: geo2Img,
     imagemSec: geo2secImg,
     colecao: "Geo",
+    likes: 0,
+  },
+  {
+    id: "11",
+    slug: "adrenaline",
+    nome: "Camiseta Adrenaline #1",
+    descricao: "Descrição da camiseta Adrenaline #1",
+    preco: 99.9,
+    imagem: adrenaline1Img,
+    imagemSec: adrenaline1secImg,
+    colecao: "Adrenaline Limited",
+    likes: 0,
+  },
+  {
+    id: "12",
+    slug: "adrenaline",
+    nome: "Camiseta Adrenaline #2",
+    descricao: "Descrição da camiseta Adrenaline #2",
+    preco: 99.9,
+    imagem: adrenaline2Img,
+    imagemSec: adrenaline2secImg,
+    colecao: "Adrenaline Limited",
+    likes: 0,
+  },
+  {
+    id: "13",
+    slug: "ceberus",
+    nome: "Camiseta Ceberus",
+    descricao: "Descrição da camiseta Ceberus",
+    preco: 99.9,
+    imagem: ceberusImg,
+    imagemSec: ceberusSecImg,
+    colecao: "Ceberus Limited",
     likes: 0,
   },
   // ...adicione mais camisetas aqui
