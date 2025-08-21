@@ -49,9 +49,10 @@ export function ProdutoPage() {
         <h1 className="text-3xl font-bold">{camiseta.nome}</h1>
         <Badge className="flex justify-center items-center w-full cursor-pointer">{`Coleção ${camiseta.colecao}`}</Badge>
         <Badge variant="secondary" className="flex justify-center items-center w-full cursor-pointer">{likes} curtidas</Badge>
-        <span className="text-2xl font-bold mb-4 block">R$ {camiseta.preco.toFixed(2)}</span>
+        <p className="text-muted-foreground text-sm">{camiseta.descricao}</p>
+        <span className="text-3xl font-bold mb-4 block">R$ {camiseta.preco.toFixed(2)}</span>
         <div className="flex items-center">
-          <Button className="w-full">Solicitar camiseta</Button>
+          <a className="w-full" href="https://www.instagram.com/tshirtsmkt/"><Button className="w-full rounded-xl">Solicitar camiseta</Button></a>
         </div>
       </div>
     </div>

@@ -34,6 +34,20 @@ import adrenaline2secImg from "../assets/produtos/adrenaline-2-back.png";
 import ceberusImg from "../assets/produtos/ceberus.png";
 import ceberusSecImg from "../assets/produtos/ceberus-back.png";
 
+import youreyesImg from "../assets/produtos/youreyes.png";
+import youreyesSecImg from "../assets/produtos/youreyes-back.png";
+
+import starboydlx1Img from "../assets/produtos/starboydlx1.png";
+import starboydlx1secImg from "../assets/produtos/starboydlx-1-back.png";
+
+import starboydlx2Img from "../assets/produtos/starboydlx2.png";
+import starboydlx2secImg from "../assets/produtos/starboydlx-2-back.png";
+
+import starboydlx3Img from "../assets/produtos/starboydlx3.png";
+import starboydlx3secImg from "../assets/produtos/starboydlx-3-back.png";
+
+import starboydlx4Img from "../assets/produtos/starboydlx4.png";
+import starboydlx4secImg from "../assets/produtos/starboydlx-4-back.png";
 
 
 
@@ -46,7 +60,8 @@ export type Camiseta = {
   imagem: string;
   imagemSec?: string;
   colecao?: string;
-  likes: number; // <-- novo campo
+  likes: number;
+  sexo: string;
 };
 
 export const camisetas: Camiseta[] = [
@@ -55,142 +70,216 @@ export const camisetas: Camiseta[] = [
     slug: "starboy1",
     nome: "Camiseta Starboy #1",
     descricao: "Descrição da camiseta Starboy #1",
-    preco: 99.9,
+    preco: 74.90,
     imagem: starboy1Img,
     imagemSec: starboy1secImg,
     colecao: "Starboy",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "2",
     slug: "starboy2",
     nome: "Camiseta Starboy #2",
     descricao: "Descrição da camiseta Starboy #1",
-    preco: 99.9,
+    preco: 74.90,
     imagem: starboy2Img,
     imagemSec: starboy2secImg,
     colecao: "Starboy",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "3",
     slug: "starboy3",
     nome: "Camiseta Starboy #3",
     descricao: "Descrição da camiseta Starboy #1",
-    preco: 99.9,
+    preco: 79.90,
     imagem: starboy3Img,
     colecao: "Starboy",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "4",
     slug: "street1",
     nome: "Camiseta Street #1",
     descricao: "Descrição da camiseta Street #1",
-    preco: 99.9,
+    preco: 74.90,
     imagem: street1Img,
     imagemSec: street1secImg,
     colecao: "Street",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "5",
     slug: "street2",
     nome: "Camiseta Street #2",
     descricao: "Descrição da camiseta Street #2",
-    preco: 99.9,
+    preco: 74.90,
     imagem: street2Img,
     imagemSec: street2secImg,
     colecao: "Street",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "6",
     slug: "tones1",
     nome: "Camiseta Tones #1",
     descricao: "Descrição da camiseta Tones #1",
-    preco: 99.9,
+    preco: 89.90,
     imagem: tones1Img,
     imagemSec: tones1secImg,
     colecao: "Tones",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "7",
     slug: "tones2",
     nome: "Camiseta Tones #2",
     descricao: "Descrição da camiseta Tones #2",
-    preco: 99.9,
+    preco: 89.90,
     imagem: tones2Img,
     imagemSec: tones2secImg,
     colecao: "Tones",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "8",
     slug: "tones3",
     nome: "Camiseta Tones #3",
     descricao: "Descrição da camiseta Tones #3",
-    preco: 99.9,
+    preco: 89.90,
     imagem: tones3Img,
     imagemSec: tones3secImg,
     colecao: "Tones",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "9",
     slug: "geo1",
     nome: "Camiseta Geo #1",
     descricao: "Descrição da camiseta Geo #1",
-    preco: 99.9,
+    preco: 69.90,
     imagem: geo1Img,
     imagemSec: geo1secImg,
     colecao: "Geo",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "10",
     slug: "geo2",
     nome: "Camiseta Geo #2",
     descricao: "Descrição da camiseta Geo #2",
-    preco: 99.9,
+    preco: 69.90,
     imagem: geo2Img,
     imagemSec: geo2secImg,
     colecao: "Geo",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "11",
     slug: "adrenaline",
     nome: "Camiseta Adrenaline #1",
     descricao: "Descrição da camiseta Adrenaline #1",
-    preco: 99.9,
+    preco: 75.0,
     imagem: adrenaline1Img,
     imagemSec: adrenaline1secImg,
     colecao: "Adrenaline Limited",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "12",
     slug: "adrenaline",
     nome: "Camiseta Adrenaline #2",
     descricao: "Descrição da camiseta Adrenaline #2",
-    preco: 99.9,
+    preco: 75.0,
     imagem: adrenaline2Img,
     imagemSec: adrenaline2secImg,
     colecao: "Adrenaline Limited",
     likes: 0,
+    sexo: "Unissex"
   },
   {
     id: "13",
     slug: "ceberus",
     nome: "Camiseta Ceberus",
     descricao: "Descrição da camiseta Ceberus",
-    preco: 99.9,
+    preco: 75.0,
     imagem: ceberusImg,
     imagemSec: ceberusSecImg,
-    colecao: "Ceberus Limited",
+    colecao: "Limited",
     likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "14",
+    slug: "youreyes",
+    nome: "Camiseta Your Eyes",
+    descricao: "Descrição da camiseta Your Eyes",
+    preco: 75.0,
+    imagem: youreyesImg,
+    imagemSec: youreyesSecImg,
+    colecao: "Limited",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "15",
+    slug: "starboydlx1",
+    nome: "Camiseta Starboy Deluxe #1",
+    descricao: "Descrição da camiseta Starboy Deluxe #1",
+    preco: 90.0,
+    imagem: starboydlx1Img,
+    imagemSec: starboydlx1secImg,
+    colecao: "Starboy Deluxe",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "16",
+    slug: "starboydlx2",
+    nome: "Camiseta Starboy Deluxe #2",
+    descricao: "Descrição da camiseta Starboy Deluxe #2",
+    preco: 90.0,
+    imagem: starboydlx2Img,
+    imagemSec: starboydlx2secImg,
+    colecao: "Starboy Deluxe",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "17",
+    slug: "starboydlx3",
+    nome: "Camiseta Starboy Deluxe #3",
+    descricao: "Descrição da camiseta Starboy Deluxe #3",
+    preco: 90.0,
+    imagem: starboydlx3Img,
+    imagemSec: starboydlx3secImg,
+    colecao: "Starboy Deluxe",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  
+  {
+    id: "18",
+    slug: "starboydlx4",
+    nome: "Camiseta Starboy Deluxe #4",
+    descricao: "Descrição da camiseta Starboy Deluxe #4",
+    preco: 90.0,
+    imagem: starboydlx4Img,
+    imagemSec: starboydlx4secImg,
+    colecao: "Starboy Deluxe",
+    likes: 0,
+    sexo: "Unissex"
   },
   // ...adicione mais camisetas aqui
 ];

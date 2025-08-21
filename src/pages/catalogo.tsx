@@ -51,7 +51,7 @@ export function Catalogo() {
                   />
                 )}
               </div>
-              <Badge className="flex justify-center items-center cursor-pointer mb-2">{`Coleção ${camiseta.colecao}`}</Badge>
+              <Badge className="flex justify-center items-center animate-pulse cursor-pointer mb-2">{`Coleção ${camiseta.colecao}`}</Badge>
               <h2 className="text-xl font-semibold text-center mb-3">
                 {camiseta.nome}
               </h2>
@@ -60,7 +60,7 @@ export function Catalogo() {
                   className="xl:w-[200px]"
                   onClick={() => (window.location.href = `/produto/${camiseta.slug}`)}
                 >
-                  Visualizar item
+                  {camiseta.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </Button>
                 <Button
                   variant={isLiked[camiseta.id] ? "default" : "secondary"}
