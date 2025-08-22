@@ -1,21 +1,68 @@
 import { useParams } from "react-router-dom";
 import { getLikes } from "../utils/likes";
 import { camisetas } from "../data/camisetas";
+import { cupons } from "../data/cupons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function ProdutoPage() {
   const { slug } = useParams<{ slug: string }>();
   const camiseta = camisetas.find((c) => c.slug === slug);
 
   const [likes, setLikes] = useState(0);
+  const [cupomInput, setCupomInput] = useState("");
+  const [cupomAplicado, setCupomAplicado] = useState<{codigo: string, desconto: number} | null>(null);
+  const [mensagemCupom, setMensagemCupom] = useState("");
 
   useEffect(() => {
     const allLikes = getLikes();
     if (camiseta) setLikes(allLikes[camiseta.id] || 0);
   }, [camiseta]);
+
+  const validarCupom = () => {
+    if (!cupomInput.trim()) {
+      setMensagemCupom("Digite um código de cupom");
+      return;
+    }
+
+    const cupomEncontrado = cupons.find(
+      cupom => cupom.codigo.toLowerCase() === cupomInput.toLowerCase()
+    );
+
+    if (cupomEncontrado) {
+      // Verifica se o cupom tem restrição de coleção
+      if (cupomEncontrado.colecao && camiseta && cupomEncontrado.colecao !== camiseta.colecao) {
+        setCupomAplicado(null);
+        setMensagemCupom(`Este cupom é válido apenas para a coleção ${cupomEncontrado.colecao}`);
+      } else {
+        setCupomAplicado({
+          codigo: cupomEncontrado.codigo,
+          desconto: cupomEncontrado.desconto
+        });
+        setMensagemCupom(`Cupom aplicado! ${cupomEncontrado.desconto}% de desconto`);
+        setCupomInput("");
+      }
+    } else {
+      setCupomAplicado(null);
+      setMensagemCupom("Cupom inválido ou não encontrado");
+    }
+
+    // Limpar mensagem após 3 segundos
+    setTimeout(() => setMensagemCupom(""), 3000);
+  };
+
+  const calcularPrecoFinal = () => {
+    if (!camiseta) return 0;
+    if (cupomAplicado) {
+      const desconto = (camiseta.preco * cupomAplicado.desconto) / 100;
+      return camiseta.preco - desconto;
+    }
+    return camiseta.preco;
+  };
 
   if (!camiseta) return <div>Camiseta não encontrada.</div>;
 
@@ -45,14 +92,25 @@ export function ProdutoPage() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center gap-2">
+      <div className="flex flex-col justify-center gap-2 mt-10">
         
         <h1 className="text-3xl font-bold">{camiseta.nome}</h1>
         <Badge className="flex justify-center items-center w-full cursor-pointer">{`Coleção ${camiseta.colecao}`}</Badge>
         <Badge variant="secondary" className="flex justify-center items-center w-full cursor-pointer">{likes} curtidas</Badge>
         <p className="text-muted-foreground text-sm">{camiseta.descricao}</p>
-        <span className="text-3xl font-bold mb-4 block">R$ {camiseta.preco.toFixed(2)}</span>
-        <div className="flex items-center">
+        
+        {/* Exibição do preço */}
+        <div className="mb-4">
+          {cupomAplicado && (
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg line-through text-muted-foreground">R$ {camiseta.preco.toFixed(2)}</span>
+              <Badge variant="destructive" className="text-xs">{cupomAplicado.desconto}% OFF</Badge>
+            </div>
+          )}
+          <span className="text-3xl font-bold block">R$ {calcularPrecoFinal().toFixed(2)}</span>
+        </div>
+
+        <div className="flex items-center mb-5">
          <Dialog>
             <DialogTrigger className="w-full">
               <Button className="w-full rounded-xl">Solicitar camiseta</Button>
@@ -65,6 +123,35 @@ export function ProdutoPage() {
                 <a href="https://www.instagram.com/tshirtsmkt/" target="_blank"><Button className="w-full">Continuar</Button></a>
             </DialogContent>
          </Dialog>
+        </div>
+        
+        <div className="flex flex-col gap-1">
+          <Label>Inserir cupom</Label>
+          <div className="flex gap-2">
+            <Input
+              className="uppercase"
+              value={cupomInput}
+              onChange={(e) => setCupomInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && validarCupom()}
+            />
+            <Button onClick={validarCupom}>Ativar</Button>
+          </div>
+          {mensagemCupom && (
+            <p className={`text-sm mt-1 ${
+              mensagemCupom.includes('aplicado') 
+                ? 'text-green-600' 
+                : 'text-red-600'
+            }`}>
+              {mensagemCupom}
+            </p>
+          )}
+          {cupomAplicado && (
+            <Badge variant="outline" className="mt-2 w-fit">
+              Cupom {cupomAplicado.codigo} ativo
+              {cupons.find(c => c.codigo === cupomAplicado.codigo)?.colecao && 
+                ` - ${cupons.find(c => c.codigo === cupomAplicado.codigo)?.colecao}`}
+            </Badge>
+          )}
         </div>
       </div>
     </div>

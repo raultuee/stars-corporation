@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card"
 import Banner1 from '../assets/banners/banner1.png'
 import Banner2 from '../assets/banners/banner2.png'
 import Banner3 from '../assets/banners/banner3.png'
+import Banner4 from '../assets/banners/banner4.png'
 
 import { Button } from "@/components/ui/button"
 import { Heart } from "lucide-react"
@@ -22,12 +23,13 @@ function Propagandas() {
         if (slider) {
           slider.next();
         }
-      }, 4000);
+      }, 3500);
     },
   })
   return (
     <div ref={ref} className="keen-slider">
-      <div className="keen-slider__slide number-slide1 text-center w-full max-h-[550px]"><img src={Banner1} alt="Banner 1" /></div>
+      <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={Banner1} alt="Banner 1" /></div>
+      <div className="keen-slider__slide number-slide1 text-center w-full max-h-[550px]"><img src={Banner4} alt="Banner 4" /></div>
       <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={Banner2} alt="Banner 2" /></div>
       <div className="keen-slider__slide number-slide3 text-center w-full max-h-[550px]"><img src={Banner3} alt="Banner 3" /></div>
     </div>
