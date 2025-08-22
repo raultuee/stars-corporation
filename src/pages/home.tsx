@@ -313,7 +313,7 @@ function StarboyCollection() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden sm:hidden md:block lg:block xl:block" variant="secondary">
                   {likes[card.id] || 0} curtidas
                 </Badge>
             </div>

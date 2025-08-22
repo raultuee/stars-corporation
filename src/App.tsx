@@ -9,7 +9,7 @@ import { Home } from './pages/home';
 import { LoadingPage } from './utils/loading-page';
 import { ProdutoPage } from './pages/ProdutoPage';
 import { Catalogo } from './pages/catalogo';
-
+import { Footer } from './pages/ui/footer/footer';
 export function App() {
 
   return (
@@ -33,7 +33,7 @@ export function App() {
             <Route path='*' element={<Error />} />
 
           </Routes>
-
+        <Footer />
       </Router>
   </ThemeProvider>
     </>

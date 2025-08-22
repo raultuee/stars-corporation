@@ -19,12 +19,6 @@ import tones1secImg from "../assets/produtos/tones-1-back.png";
 import tones2secImg from "../assets/produtos/tones-2-back.png";
 import tones3secImg from "../assets/produtos/tones-3-back.png";
 
-import geo1Img from "../assets/produtos/geo1.png";
-import geo2Img from "../assets/produtos/geo2.png";
-
-import geo1secImg from "../assets/produtos/geo-1-back.png";
-import geo2secImg from "../assets/produtos/geo-2-back.png";
-
 import adrenaline1Img from "../assets/produtos/adrenaline1.png";
 import adrenaline1secImg from "../assets/produtos/adrenaline-1-back.png";
 
@@ -157,30 +151,6 @@ export const camisetas: Camiseta[] = [
     imagem: tones3Img,
     imagemSec: tones3secImg,
     colecao: "Tones",
-    likes: 0,
-    sexo: "Unissex"
-  },
-  {
-    id: "9",
-    slug: "geo1",
-    nome: "Camiseta Geo #1",
-    descricao: "Descrição da camiseta Geo #1",
-    preco: 69.90,
-    imagem: geo1Img,
-    imagemSec: geo1secImg,
-    colecao: "Geo",
-    likes: 0,
-    sexo: "Unissex"
-  },
-  {
-    id: "10",
-    slug: "geo2",
-    nome: "Camiseta Geo #2",
-    descricao: "Descrição da camiseta Geo #2",
-    preco: 69.90,
-    imagem: geo2Img,
-    imagemSec: geo2secImg,
-    colecao: "Geo",
     likes: 0,
     sexo: "Unissex"
   },

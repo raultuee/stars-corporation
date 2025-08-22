@@ -4,6 +4,7 @@ import { camisetas } from "../data/camisetas";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 
 export function ProdutoPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -19,8 +20,8 @@ export function ProdutoPage() {
   if (!camiseta) return <div>Camiseta não encontrada.</div>;
 
   return (
-    <div className="mx-auto p-4 flex flex-col sm:flex-row gap-8 w-full items-center justify-center mt-10">
-      <div className="flex flex-col items-center">
+    <div className="mx-auto p-4 flex flex-col sm:flex-row gap-8 w-full items-center justify-center mt-10 mb-[110px]">
+      <div className="flex flex-col items-center mt-7">
         <div className="relative w-full max-w-md mb-6 group">
           <img
             src={camiseta.imagem}
@@ -52,7 +53,18 @@ export function ProdutoPage() {
         <p className="text-muted-foreground text-sm">{camiseta.descricao}</p>
         <span className="text-3xl font-bold mb-4 block">R$ {camiseta.preco.toFixed(2)}</span>
         <div className="flex items-center">
-          <a className="w-full" href="https://www.instagram.com/tshirtsmkt/"><Button className="w-full rounded-xl">Solicitar camiseta</Button></a>
+         <Dialog>
+            <DialogTrigger className="w-full">
+              <Button className="w-full rounded-xl">Solicitar camiseta</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <h1 className="font-bold text-lg">Para concluir</h1>
+                <h2 className="text-muted-foreground">Você será redirecionado ao nosso Instagram, onde pode nos contatar na DM sobre seu pedido.</h2>
+              </DialogHeader>
+                <a href="https://www.instagram.com/tshirtsmkt/" target="_blank"><Button className="w-full">Continuar</Button></a>
+            </DialogContent>
+         </Dialog>
         </div>
       </div>
     </div>
