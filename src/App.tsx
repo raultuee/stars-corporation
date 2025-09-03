@@ -10,6 +10,9 @@ import { LoadingPage } from './utils/loading-page';
 import { ProdutoPage } from './pages/ProdutoPage';
 import { Catalogo } from './pages/catalogo';
 import { Footer } from './pages/ui/footer/footer';
+import { Starboy } from './pages/colecoes/starboy';
+import { Carrinho } from './pages/carrinho';
+import { VerCarrinho } from './pages/ui/box/box';
 export function App() {
 
   return (
@@ -26,6 +29,10 @@ export function App() {
 
             <Route path='/' element={<Home/>}/>
 
+            <Route path='/colecoes/starboy' element={<Starboy/>}/>
+
+            <Route path='/carrinho' element={<Carrinho/>}/>
+
             <Route path='/catalogo' element={<Catalogo/>}/>
 
             <Route path="/produto/:slug" element={<ProdutoPage />} />
@@ -33,6 +40,8 @@ export function App() {
             <Route path='*' element={<Error />} />
 
           </Routes>
+
+          <VerCarrinho/>
         <Footer />
       </Router>
   </ThemeProvider>

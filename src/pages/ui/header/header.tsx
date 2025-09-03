@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Search, X } from "lucide-react";
+import { ChevronDown, Search, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { camisetas, Camiseta } from "../../../data/camisetas";
+
+import Logotipo from '../../../assets/logo.png';
+import { toast } from "sonner";
 
 // Componente para exibir resultados da pesquisa
 function SearchResults({ 
@@ -75,6 +78,8 @@ function HeaderSmall() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Camiseta[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [isUnstuck, setIsUnstuck] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Função para pesquisar nas camisetas
@@ -88,6 +93,33 @@ function HeaderSmall() {
       camiseta.descricao.toLowerCase().includes(lowercaseTerm)
     );
   };
+
+  // Effect para controlar o scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Scrolling down and past threshold - unstick
+        if (!isUnstuck) {
+          setIsUnstuck(true);
+        }
+      } else if (currentScrollY < lastScrollY && currentScrollY < 30) {
+        // Scrolling up and near top - stick back
+        if (isUnstuck) {
+          setIsUnstuck(false);
+        }
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY, isUnstuck]);
 
   // Effect para pesquisar quando o termo muda
   useEffect(() => {
@@ -130,10 +162,27 @@ function HeaderSmall() {
   };
 
   return (
-    <div className="sticky top-0 z-50 flex flex-col justify-center items-center w-full bg-white border-b border-gray-200">
+    <div 
+      className={`
+        ${isUnstuck ? 'fixed' : 'sticky'} 
+        top-0 z-50 flex flex-col justify-center items-center w-full bg-[#141414] border-b border-neutral-700
+        transition-all duration-500 ease-out
+        ${isUnstuck 
+          ? 'transform -translate-y-1 shadow-xl backdrop-blur-sm bg-[#141414]/95' 
+          : 'transform translate-y-0 shadow-none bg-[#141414]'
+        }
+      `}
+      style={{
+        transform: isUnstuck 
+          ? 'translateY(-4px) scale(0.98)' 
+          : 'translateY(0px) scale(1)',
+        opacity: isUnstuck ? 0.95 : 1,
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+      }}
+    >
       <section className="flex items-center w-full px-4 py-3 gap-5">
         <a href="/">
-          <h1 className="tracking-tight font-extrabold text-lg">T-SHIRT'S</h1>
+          <img src={Logotipo} alt="Logotipo" className="w-[80px] mt-1"/>
         </a>
 
         <div className="relative ml-auto" ref={searchRef}>
@@ -142,13 +191,13 @@ function HeaderSmall() {
             variant="ghost"
             onClick={() => setShowSearch((v) => !v)}
           >
-            <Search />
+            <Search color="white" />
           </Button>
           {showSearch && (
             <div className="relative">
               <Input
                 autoFocus
-                className="absolute right-0 top-12 w-48 shadow-lg"
+                className="absolute right-0 top-12 w-48 shadow-lg bg-white"
                 placeholder="Pesquisar..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -178,6 +227,8 @@ export function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Camiseta[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [isUnstuck, setIsUnstuck] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Função para pesquisar nas camisetas
@@ -191,6 +242,33 @@ export function Header() {
       camiseta.descricao.toLowerCase().includes(lowercaseTerm)
     );
   };
+
+  // Effect para controlar o scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 120) {
+        // Scrolling down and past threshold - unstick
+        if (!isUnstuck) {
+          setIsUnstuck(true);
+        }
+      } else if (currentScrollY < lastScrollY && currentScrollY < 60) {
+        // Scrolling up and near top - stick back
+        if (isUnstuck) {
+          setIsUnstuck(false);
+        }
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY, isUnstuck]);
 
   // Effect para pesquisar quando o termo muda
   useEffect(() => {
@@ -251,19 +329,36 @@ export function Header() {
         <HeaderSmall />
       </div>
       <div className="hidden sm:block">
-        <div className="sticky top-0 z-50 flex flex-col justify-center items-center w-full bg-white border-b border-gray-200">
+        <div 
+          className={`
+            ${isUnstuck ? 'fixed' : 'sticky'} 
+            top-0 z-50 flex flex-col justify-center items-center w-full bg-[#141414] border-b border-neutral-800
+            transition-all duration-500 ease-out
+            ${isUnstuck 
+              ? 'shadow-2xl backdrop-blur-sm bg-[#141414]/95' 
+              : 'shadow-none bg-[#141414]'
+            }
+          `}
+          style={{
+            transform: isUnstuck 
+              ? 'translateY(-6px) scale(0.97)' 
+              : 'translateY(0px) scale(1)',
+            opacity: isUnstuck ? 0.96 : 1,
+            transition: 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+          }}
+        >
           <section className="flex justify-center mt-5 mb-5">
             <a href="/">
               <section className="mr-10 flex text-center">
-                <h1 className="mt-[7px] tracking-tight font-extrabold text-xl">T-SHIRT'S</h1>
+                <img src={Logotipo} alt="" className="w-[80px] mt-1"/>
               </section>
             </a>
-            <Separator orientation="vertical" className="h-[40px]" />
+            <Separator orientation="vertical" className="h-[40px] mt-[4px] mr-[20px] bg-neutral-700" />
             <div className="flex items-center justify-center relative" ref={searchRef}>
               <div className="relative">
                 <Input 
-                  className="w-[500px] h-[40px] ml-5 mr-5" 
-                  placeholder="Procure aqui..." 
+                  className="w-[500px] h-[40px] ml-5 mr-5 bg-[#2A2B2A] border-[#141414] text-white" 
+                  placeholder="Procure por camisetas..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onFocus={() => {
@@ -282,17 +377,19 @@ export function Header() {
                   />
                 </div>
               </div>
-              <Button className="w-9 h-9" onClick={handleSearch}>
-                <Search />
+              <Button className="w-9 h-9 bg-[#2A2B2A]" onClick={handleSearch}>
+                <Search color="white" />
               </Button>
             </div>
             <div>
-              <a href="/catalogo">
-                <Button className="w-[150px] mt-[2px] ml-5 mr-5">
-                  Acessar catálogo
-                </Button>
-              </a>
             </div>
+          </section>
+          <section className="text-white mb-4 flex gap-3">
+            <a href="/colecoes/starboy"><Button variant="ghost" className="font-semibold">STARBOY <ChevronDown/></Button></a>
+            <Button variant="ghost" className="font-semibold">TONES <ChevronDown/></Button>
+            <Button variant="ghost" className="font-semibold">ADRENALINE <ChevronDown/></Button>
+            <a href="/catalogo"><Button variant="ghost" className="font-semibold">CATÁLOGO <ChevronDown/></Button></a>
+            <Button variant="ghost" className="font-semibold" onClick={() => toast.info('Em breve você poderá criar camisetas!')}>CRIE SUA PRÓPRIA CAMISETA <ChevronDown/></Button>
           </section>
         </div>
       </div>

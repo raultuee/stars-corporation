@@ -1,4 +1,4 @@
-import { ThemeProvider } from "./pages/theme/theme-provider" 
+import { ThemeProvider } from "./components/theme-provider" 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,6 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body>
           <ThemeProvider
             defaultTheme="system"
+            storageKey="vite-ui-theme"
           >
             {children}
           </ThemeProvider>

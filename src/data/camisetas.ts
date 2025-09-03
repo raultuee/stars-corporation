@@ -43,7 +43,23 @@ import starboydlx3secImg from "../assets/produtos/starboydlx-3-back.png";
 import starboydlx4Img from "../assets/produtos/starboydlx4.png";
 import starboydlx4secImg from "../assets/produtos/starboydlx-4-back.png";
 
+import varied1Img from "../assets/produtos/varied1.png";
+import varied1secImg from "../assets/produtos/varied-1-back.png";
 
+import varied2Img from "../assets/produtos/varied2.png";
+import varied2secImg from "../assets/produtos/varied-2-back.png";
+
+import varied3Img from "../assets/produtos/varied3.png";
+import varied3secImg from "../assets/produtos/varied-3-back.png";
+
+import varied4Img from "../assets/produtos/varied4.png";
+import varied4secImg from "../assets/produtos/varied-4-back.png";
+
+import varied5Img from "../assets/produtos/varied5.png";
+import varied5secImg from "../assets/produtos/varied-5-back.png";
+
+import varied6Img from "../assets/produtos/varied6.png";
+import varied6secImg from "../assets/produtos/varied-6-back.png";
 
 export type Camiseta = {
   id: string;
@@ -248,6 +264,84 @@ export const camisetas: Camiseta[] = [
     imagem: starboydlx4Img,
     imagemSec: starboydlx4secImg,
     colecao: "Starboy Deluxe",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "19",
+    slug: "varied1",
+    nome: "Camiseta Varied #1",
+    descricao: "",
+    preco: 70.0,
+    imagem: varied1Img,
+    imagemSec: varied1secImg,
+    colecao: "Varied",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "20",
+    slug: "varied2",
+    nome: "Camiseta Varied #2",
+    descricao: "",
+    preco: 70.0,
+    imagem: varied2Img,
+    imagemSec: varied2secImg,
+    colecao: "Varied",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "21",
+    slug: "varied3",
+    nome: "Camiseta Varied #3",
+    descricao: "",
+    preco: 70.0,
+    imagem: varied3Img,
+    imagemSec: varied3secImg,
+    colecao: "Varied",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "22",
+    slug: "varied4",
+    nome: "Camiseta Varied #4",
+    descricao: "",
+    preco: 70.0,
+    imagem: varied4Img,
+    imagemSec: varied4secImg,
+    colecao: "Varied",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "23",
+    slug: "varied5",
+    nome: "Camiseta Varied #5",
+    descricao: "",
+    preco: 70.0,
+    imagem: varied5Img,
+    imagemSec: varied5secImg,
+    colecao: "Varied",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "24",
+    slug: "varied6",
+    nome: "Camiseta Varied #6",
+    descricao: "",
+    preco: 70.0,
+    imagem: varied6Img,
+    imagemSec: varied6secImg,
+    colecao: "Varied",
     likes: 0,
     sexo: "Unissex"
   },

@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PlusCircle } from "lucide-react";
 
 export function ProdutoPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -92,15 +94,15 @@ export function ProdutoPage() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-center gap-2 mt-10">
+      <div className="flex flex-col justify-center gap-2">
         
-        <h1 className="text-3xl font-bold">{camiseta.nome}</h1>
+        <h1 className="text-3xl font-bold mt-16">{camiseta.nome}</h1>
         <Badge className="flex justify-center items-center w-full cursor-pointer">{`Coleção ${camiseta.colecao}`}</Badge>
         <Badge variant="secondary" className="flex justify-center items-center w-full cursor-pointer">{likes} curtidas</Badge>
-        <p className="text-muted-foreground text-sm">{camiseta.descricao}</p>
+        <p className="text-muted-foreground text-sm mt-2">{camiseta.descricao}</p>
         
         {/* Exibição do preço */}
-        <div className="mb-4">
+        <div className="">
           {cupomAplicado && (
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg line-through text-muted-foreground">R$ {camiseta.preco.toFixed(2)}</span>
@@ -110,10 +112,29 @@ export function ProdutoPage() {
           <span className="text-3xl font-bold block">R$ {calcularPrecoFinal().toFixed(2)}</span>
         </div>
 
-        <div className="flex items-center mb-5">
+        <div className="mb-4">
+            <Select>
+              <SelectTrigger className="">
+                <SelectValue placeholder="Selecione o tamanho" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Tamanhos</SelectLabel>
+                  <SelectItem value="PP">PP</SelectItem>
+                  <SelectItem value="M">M</SelectItem>
+                  <SelectItem value="G">G</SelectItem>
+                  <SelectItem value="GG">GG</SelectItem>
+                  <SelectItem value="XG">XG</SelectItem>
+                  <SelectItem value="XGG">XGG</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+        </div>
+
+        <div className="flex items-center">
          <Dialog>
             <DialogTrigger className="w-full">
-              <Button className="w-full rounded-xl">Solicitar camiseta</Button>
+              <Button className="w-full flex rounded-xl items-center"><PlusCircle className="mt-[1px]"/> Adicionar ao carrinho</Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -125,7 +146,7 @@ export function ProdutoPage() {
          </Dialog>
         </div>
         
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 mt-2">
           <Label>Inserir cupom</Label>
           <div className="flex gap-2">
             <Input
