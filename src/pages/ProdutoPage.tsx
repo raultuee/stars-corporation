@@ -19,6 +19,29 @@ export function ProdutoPage() {
   const [cupomInput, setCupomInput] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState<{codigo: string, desconto: number} | null>(null);
   const [mensagemCupom, setMensagemCupom] = useState("");
+  const options = [
+          { label: "Oversized", value: true },
+          { label: "Regular", value: false },
+        ];
+
+  function SelecionarEstilo() {
+	const [selected, setSelected] = useState(true); // 30 dias selecionado por padrão
+
+	return (
+		<div className="flex gap-3 mb-2">
+			{options.map((opt) => (
+				<Button
+					className="w-1/2"
+					key={opt.label}
+					variant={selected === opt.value ? "default" : "ghost"}
+					onClick={() => setSelected(opt.value)}
+				>
+					{opt.label}
+				</Button>
+			))}
+		</div>
+	);
+}
 
   useEffect(() => {
     const allLikes = getLikes();
@@ -68,6 +91,8 @@ export function ProdutoPage() {
 
   if (!camiseta) return <div>Camiseta não encontrada.</div>;
 
+  
+
   return (
     <div className="mx-auto p-4 flex flex-col sm:flex-row gap-8 w-full items-center justify-center mt-10 mb-[110px]">
       <div className="flex flex-col items-center mt-7">
@@ -97,7 +122,7 @@ export function ProdutoPage() {
       <div className="flex flex-col justify-center gap-2">
         
         <h1 className="text-3xl font-bold mt-16">{camiseta.nome}</h1>
-        <Badge className="flex justify-center items-center w-full cursor-pointer">{`Coleção ${camiseta.colecao}`}</Badge>
+        <Badge className="flex justify-center items-center w-full cursor-pointer animate-pulse">{`Coleção ${camiseta.colecao}`}</Badge>
         <Badge variant="secondary" className="flex justify-center items-center w-full cursor-pointer">{likes} curtidas</Badge>
         <p className="text-muted-foreground text-sm mt-2">{camiseta.descricao}</p>
         
@@ -112,7 +137,7 @@ export function ProdutoPage() {
           <span className="text-3xl font-bold block">R$ {calcularPrecoFinal().toFixed(2)}</span>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
             <Select>
               <SelectTrigger className="">
                 <SelectValue placeholder="Selecione o tamanho" />
@@ -130,6 +155,8 @@ export function ProdutoPage() {
               </SelectContent>
             </Select>
         </div>
+
+        <SelecionarEstilo/>
 
         <div className="flex items-center">
          <Dialog>

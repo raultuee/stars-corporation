@@ -1,5 +1,10 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
 export function Carrinho() {
     return (
@@ -44,9 +49,59 @@ export function Carrinho() {
                         </CardContent>
                     </Card>
                 </div>
+                <div>
+                    <Separator className="my-8 bg-neutral-200" />
 
-                <div className="flex justify-end mt-10 mr-6 ">
-                    <h1>Finalizar compra</h1>
+                    <Dialog>
+                        <DialogTrigger>
+                            <Button>Adicionar endereço</Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Adicione seu endereço</DialogTitle>
+                                <DialogDescription>Os envios serão apenas entregues na cidade de Franca (São Paulo), com a taxa fixa de R$10,00.</DialogDescription>
+                            </DialogHeader>
+
+                            <form className="flex flex-col gap-4">
+
+                                <div className="">
+                                    <Label>CEP</Label>
+                                    <Input required/>
+                                </div>
+
+                                <div className="">
+                                    <Label>Logradouro</Label>
+                                    <Input required/>
+                                </div>
+
+                                <div className="">
+                                    <Label>Número</Label>
+                                    <Input required/>
+                                </div>
+
+                                <div className="">
+                                    <Label>Bairro</Label>
+                                    <Input required/>
+                                </div>
+
+                                <div className="">
+                                    <Label>Complemento</Label>
+                                    <Input required/>
+                                </div>
+
+                                <div className="">
+                                    <Label>Nome do Destinário</Label>
+                                    <Input required/>
+                                </div>
+
+                                <Button>Confirmar</Button>
+                            </form>
+                        </DialogContent>
+                    </Dialog>
+
+                    <div className="flex justify-end">
+                        <p className="font-bold text-xl">Total: R$ 239,70</p>
+                    </div>
                 </div>
             </div>
         </div>

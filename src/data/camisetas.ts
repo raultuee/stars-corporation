@@ -61,6 +61,15 @@ import varied5secImg from "../assets/produtos/varied-5-back.png";
 import varied6Img from "../assets/produtos/varied6.png";
 import varied6secImg from "../assets/produtos/varied-6-back.png";
 
+import celestial1Img from "../assets/produtos/celestial1.png";
+import celestial1secImg from "../assets/produtos/celestial-1-back.png";
+
+import celestial2Img from "../assets/produtos/celestial2.png";
+import celestial2secImg from "../assets/produtos/celestial-2-back.png";
+
+import celestial3Img from "../assets/produtos/celestial3.png";
+import celestial3secImg from "../assets/produtos/celestial-3-back.png";
+
 export type Camiseta = {
   id: string;
   slug: string;
@@ -342,6 +351,45 @@ export const camisetas: Camiseta[] = [
     imagem: varied6Img,
     imagemSec: varied6secImg,
     colecao: "Varied",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "25",
+    slug: "celestial1",
+    nome: "Camiseta Celestial Vigorous",
+    descricao: "",
+    preco: 70.0,
+    imagem: celestial1Img,
+    imagemSec: celestial1secImg,
+    colecao: "Celestial",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "26",
+    slug: "celestial2",
+    nome: "Camiseta Celestial Sacred",
+    descricao: "",
+    preco: 70.0,
+    imagem: celestial2Img,
+    imagemSec: celestial2secImg,
+    colecao: "Celestial",
+    likes: 0,
+    sexo: "Unissex"
+  },
+
+  {
+    id: "27",
+    slug: "celestial3",
+    nome: "Camiseta Celestial Mentality",
+    descricao: "",
+    preco: 70.0,
+    imagem: celestial3Img,
+    imagemSec: celestial3secImg,
+    colecao: "Celestial",
     likes: 0,
     sexo: "Unissex"
   },
