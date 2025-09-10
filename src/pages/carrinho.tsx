@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 
 export function Carrinho() {
     return (
-        <div className="min-w-screen pt-[141px] h-[calc(100vh-141px)] flex flex-col gap-10 sm:gap-10 md:gap-20 lg:gap-20 xl:gap-20 bg-white">
+        <div className="min-w-screen h-[calc(100vh-141px)] flex flex-col gap-10 sm:gap-10 md:gap-20 lg:gap-20 xl:gap-20 bg-white">
             <div className="p-8 ml-[200px]">
                 <h1 className="font-bold text-2xl uppercase mb-7">Carrinho</h1>
                 <div className="flex flex-col gap-4">

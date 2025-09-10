@@ -70,6 +70,9 @@ import celestial2secImg from "../assets/produtos/celestial-2-back.png";
 import celestial3Img from "../assets/produtos/celestial3.png";
 import celestial3secImg from "../assets/produtos/celestial-3-back.png";
 
+import angels1Img from "../assets/produtos/angels1.png";
+import angels1secImg from "../assets/produtos/angels-1-back.png";
+
 export type Camiseta = {
   id: string;
   slug: string;
@@ -390,6 +393,18 @@ export const camisetas: Camiseta[] = [
     imagem: celestial3Img,
     imagemSec: celestial3secImg,
     colecao: "Celestial",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "28",
+    slug: "angels",
+    nome: "Camiseta Angels",
+    descricao: "",
+    preco: 70.0,
+    imagem: angels1Img,
+    imagemSec: angels1secImg,
+    colecao: "Varied",
     likes: 0,
     sexo: "Unissex"
   },

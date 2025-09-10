@@ -386,8 +386,8 @@ export function Header() {
           </section>
           <section className="text-white mb-4 flex gap-3">
             <a href="/colecoes/starboy"><Button variant="ghost" className="font-semibold">STARBOY <ChevronDown/></Button></a>
-            <Button variant="ghost" className="font-semibold">TONES <ChevronDown/></Button>
-            <Button variant="ghost" className="font-semibold">ADRENALINE <ChevronDown/></Button>
+            <a href="/colecoes/tones"><Button variant="ghost" className="font-semibold">TONES <ChevronDown/></Button></a>
+            <a href="/colecoes/celestial"><Button variant="ghost" className="font-semibold">CELESTIAL <ChevronDown/></Button></a>
             <a href="/catalogo"><Button variant="ghost" className="font-semibold">CATÁLOGO <ChevronDown/></Button></a>
             <Button variant="ghost" className="font-semibold" onClick={() => toast.info('Em breve você poderá criar camisetas!')}>CRIE SUA PRÓPRIA CAMISETA <ChevronDown/></Button>
           </section>
