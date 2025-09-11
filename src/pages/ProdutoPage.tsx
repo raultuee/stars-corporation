@@ -20,29 +20,28 @@ export function ProdutoPage() {
   const [cupomAplicado, setCupomAplicado] = useState<{codigo: string, desconto: number} | null>(null);
   const [mensagemCupom, setMensagemCupom] = useState("");
   const [selectedSize, setSelectedSize] = useState(""); // Adicione para o tamanho
+  const [selectedEstilo, setSelectedEstilo] = useState<"Oversized" | "Regular">("Oversized");
   const options = [
           { label: "Oversized", value: true },
           { label: "Regular", value: false },
         ];
 
   function SelecionarEstilo() {
-	const [selected, setSelected] = useState(true); // 30 dias selecionado por padrão
-
-	return (
-		<div className="flex gap-3 mb-2">
-			{options.map((opt) => (
-				<Button
-					className="w-1/2"
-					key={opt.label}
-					variant={selected === opt.value ? "default" : "ghost"}
-					onClick={() => setSelected(opt.value)}
-				>
-					{opt.label}
-				</Button>
-			))}
-		</div>
-	);
-}
+    return (
+      <div className="flex gap-3 mb-2">
+        {options.map((opt) => (
+          <Button
+            className="w-1/2"
+            key={opt.label}
+            variant={selectedEstilo === opt.label ? "default" : "ghost"}
+            onClick={() => setSelectedEstilo(opt.label as "Oversized" | "Regular")}
+          >
+            {opt.label}
+          </Button>
+        ))}
+      </div>
+    );
+  }
 
   useEffect(() => {
     const allLikes = getLikes();
@@ -91,31 +90,32 @@ export function ProdutoPage() {
   };
 
   function handleAddToCart() {
-  if (!selectedSize) {
-    toast.error("Selecione o tamanho!");
-    return;
+    if (!selectedSize) {
+      toast.error("Selecione o tamanho!");
+      return;
+    }
+    if (!camiseta) {
+      toast.error("Camiseta não encontrada!");
+      return;
+    }
+    const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+    if (carrinho.length >= 3) {
+      toast.error("O carrinho pode conter no máximo 3 itens.");
+      return;
+    }
+    const item = {
+      id: camiseta.id,
+      nome: camiseta.nome,
+      preco: calcularPrecoFinal(),
+      tamanho: selectedSize,
+      tipo: selectedEstilo, // Adiciona o estilo escolhido
+      cupom: cupomAplicado ? cupomAplicado.codigo : "Nenhum cupom",
+      colecao: camiseta.colecao,
+    };
+    carrinho.push(item);
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    toast.success("Camiseta adicionada ao carrinho!");
   }
-  if (!camiseta) {
-    toast.error("Camiseta não encontrada!");
-    return;
-  }
-  const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
-  if (carrinho.length >= 3) {
-    toast.error("O carrinho pode conter no máximo 3 itens.");
-    return;
-  }
-  const item = {
-    id: camiseta.id,
-    nome: camiseta.nome,
-    preco: calcularPrecoFinal(),
-    tamanho: selectedSize,
-    cupom: cupomAplicado ? cupomAplicado.codigo : "Nenhum cupom",
-    colecao: camiseta.colecao,
-  };
-  carrinho.push(item);
-  localStorage.setItem("carrinho", JSON.stringify(carrinho));
-  toast.success("Camiseta adicionada ao carrinho!");
-}
 
   if (!camiseta) return <div>Camiseta não encontrada.</div>;
 

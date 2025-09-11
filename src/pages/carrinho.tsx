@@ -8,10 +8,12 @@ import { Separator } from "@/components/ui/separator";
 import { Check, House, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type CarrinhoItem = {
     nome: string;
     tamanho: string;
+    tipo: "Oversized" | "Regular";
     cupom: string;
     preco: number;
 };
@@ -91,6 +93,9 @@ export function Carrinho() {
                                                         <Badge variant="default" className="text-xs">
                                                             Tamanho {item.tamanho}
                                                         </Badge>
+                                                        <Badge variant="default" className="text-xs">
+                                                            {item.tipo}
+                                                        </Badge>
                                                         <Badge variant="secondary" className="text-xs">
                                                             {item.cupom}
                                                         </Badge>
@@ -107,7 +112,10 @@ export function Carrinho() {
                                         <Button
                                             variant="ghost"
                                             size="sm"
-                                            onClick={() => removerItem(idx)}
+                                            onClick={() => {
+                                                removerItem(idx);
+                                                toast.success("Item removido do carrinho");
+                                            }}
                                             className="mt-2 p-2 hover:bg-red-50 hover:text-red-600 transition-colors"
                                         >
                                             <X className="h-4 w-4" />

@@ -15,6 +15,7 @@ import { VerCarrinho } from './pages/ui/box/box';
 import { Celestial } from './pages/colecoes/celestial';
 import { Tones } from './pages/colecoes/tones';
 import { PageFooterWrapper } from './components/wrappers/footer-wrapper';
+import DesignerCamiseta from './pages/criar-camiseta';
 export function App() {
 
   return (
@@ -38,6 +39,8 @@ export function App() {
             <Route path='/carrinho' element={<Carrinho/>}/>
 
             <Route path='/catalogo' element={<Catalogo/>}/>
+
+            <Route path='/criar-camiseta' element={<DesignerCamiseta/>}/>
 
             <Route path="/produto/:slug" element={<ProdutoPage />} />
 

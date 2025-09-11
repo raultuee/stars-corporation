@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from "react";
 import { camisetas, Camiseta } from "../../../data/camisetas";
 
 import Logotipo from '../../../assets/logo.png';
-import { toast } from "sonner";
 
 // Componente para exibir resultados da pesquisa
 function SearchResults({ 
@@ -389,7 +388,7 @@ export function Header() {
             <a href="/colecoes/tones"><Button variant="ghost" className="font-semibold">TONES <ChevronDown/></Button></a>
             <a href="/colecoes/celestial"><Button variant="ghost" className="font-semibold">CELESTIAL <ChevronDown/></Button></a>
             <a href="/catalogo"><Button variant="ghost" className="font-semibold">CATÁLOGO <ChevronDown/></Button></a>
-            <Button variant="ghost" className="font-semibold" onClick={() => toast.info('Em breve você poderá criar camisetas!')}>CRIE SUA PRÓPRIA CAMISETA <ChevronDown/></Button>
+            <a href="/criar-camiseta"><Button variant="ghost" className="font-semibold">CRIE SUA PRÓPRIA CAMISETA <ChevronDown/></Button></a>
           </section>
         </div>
       </div>

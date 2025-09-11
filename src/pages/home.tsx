@@ -2,10 +2,10 @@ import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import { Card } from "@/components/ui/card"
 
-import Banner1 from '../assets/banners/banner1.png'
 import Banner2 from '../assets/banners/banner2.png'
 import Banner3 from '../assets/banners/banner3.png'
 import Banner4 from '../assets/banners/banner4.png'
+import BannerReturns from '../assets/banners/banner5.png'
 
 import { Button } from "@/components/ui/button"
 import { Heart } from "lucide-react"
@@ -28,7 +28,7 @@ function Propagandas() {
   })
   return (
     <div ref={ref} className="keen-slider">
-      <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={Banner1} alt="Banner 1" /></div>
+      <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={BannerReturns} alt="Banner 1" /></div>
       <div className="keen-slider__slide number-slide1 text-center w-full max-h-[550px]"><img src={Banner4} alt="Banner 4" /></div>
       <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={Banner2} alt="Banner 2" /></div>
       <div className="keen-slider__slide number-slide3 text-center w-full max-h-[550px]"><img src={Banner3} alt="Banner 3" /></div>
@@ -484,7 +484,7 @@ function StarboyCollection() {
   );
 }
 
-function TonesCollection() {
+function CelestialCollection() {
   const [likes, setLikesState] = useState<Record<string, number>>({});
   const [isLiked, setIsLiked] = useState<Record<string, boolean>>({});
   const [current, setCurrent] = useState(0);
@@ -501,21 +501,21 @@ function TonesCollection() {
   }
 
   // Ordena as camisetas por likes (decrescente) e pega as 3 mais curtidas
-  const tonesItems = [...camisetas]
-    .filter(camiseta => camiseta.colecao === "Tones");
+  const celestialItems = [...camisetas]
+    .filter(camiseta => camiseta.colecao === "Celestial");
 
   function handlePrev() {
-    setCurrent((prev) => (prev === 0 ? tonesItems.length - 1 : prev - 1));
+    setCurrent((prev) => (prev === 0 ? celestialItems.length - 1 : prev - 1));
   }
 
   function handleNext() {
-    setCurrent((prev) => (prev === tonesItems.length - 1 ? 0 : prev + 1));
+    setCurrent((prev) => (prev === celestialItems.length - 1 ? 0 : prev + 1));
   }
 
   return (
     <div className="mt-20 w-full">
       <h1 className="text-2xl text-center sm:text-2xl sm:text-center md:text-3xl md:text-center lg:text-3xl lg:ml-[200px] lg:text-start lg:mb-[70px] xl:text-3xl xl:ml-[200px] xl:text-start xl:mb-[70px] font-bold uppercase mb-10">
-        TONES COLLECTION
+        CELESTIAL COLLECTION
       </h1>
       {/* Mobile: apenas 1 card, com botões laterais */}
       <div className="flex items-center justify-center gap-5 sm:hidden">
@@ -526,43 +526,43 @@ function TonesCollection() {
         >
           &#8592;
         </button>
-        {tonesItems.length > 0 && (
+        {celestialItems.length > 0 && (
           <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg relative">
             <div className="relative w-[220px] h-[220px] mb-4">
               <img
-                src={tonesItems[current].imagem}
-                alt={tonesItems[current].nome}
+                src={celestialItems[current].imagem}
+                alt={celestialItems[current].nome}
                 className={
-                  tonesItems[current].imagemSec
+                  celestialItems[current].imagemSec
                     ? "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0"
                     : "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-100"
                 }
               />
-              {tonesItems[current].imagemSec && (
+              {celestialItems[current].imagemSec && (
                 <img
-                  src={tonesItems[current].imagemSec}
-                  alt={tonesItems[current].nome + ' costas'}
+                  src={celestialItems[current].imagemSec}
+                  alt={celestialItems[current].nome + ' costas'}
                   className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                 />
               )}
             </div>
-            <h2 className="text-xl font-semibold text-center mt-5 mb-5">{tonesItems[current].nome}</h2>
+            <h2 className="text-xl font-semibold text-center mt-5 mb-5">{celestialItems[current].nome}</h2>
             <div className="flex gap-2 items-center">
               <Button
                 className="w-[150px]"
-                onClick={() => window.location.href = `/produto/${tonesItems[current].slug}`}
+                onClick={() => window.location.href = `/produto/${celestialItems[current].slug}`}
               >
-                {tonesItems[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                {celestialItems[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
               </Button>
               <Button
-                onClick={() => handleLike(tonesItems[current].id)}
-                variant={isLiked[tonesItems[current].id] ? "default" : "secondary"}
-                disabled={isLiked[tonesItems[current].id]}
+                onClick={() => handleLike(celestialItems[current].id)}
+                variant={isLiked[celestialItems[current].id] ? "default" : "secondary"}
+                disabled={isLiked[celestialItems[current].id]}
               >
                 <Heart />
               </Button>
               <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
-                  {likes[tonesItems[current].id] || 0} curtidas
+                  {likes[celestialItems[current].id] || 0} curtidas
                 </Badge>
             </div>
           </Card>
@@ -577,7 +577,7 @@ function TonesCollection() {
       </div>
       {/* Desktop: todos os cards */}
       <div className="hidden sm:flex grid-cols-3 items-center justify-center gap-5">
-        {tonesItems.map((card) => (
+        {celestialItems.map((card) => (
           <Card
             key={card.id}
             className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
@@ -606,7 +606,7 @@ function TonesCollection() {
                 className="w-[200px]"
                 onClick={() => window.location.href = `/produto/${card.slug}`}
               >
-                {tonesItems[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                {celestialItems[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
               </Button>
               <Button
                 variant={isLiked[card.id] ? "default" : "secondary"}
@@ -635,7 +635,7 @@ function TonesCollection() {
 function Fornecedores() {
   return (
     <div className="w-full">
-      <img src={Banner3} alt="" />
+      <img src={BannerReturns} alt="" />
     </div>
   )
 }
@@ -648,7 +648,7 @@ export function Home() {
       <MaisCurtidas/>
       <Fornecedores/>
       <StarboyCollection/>
-      <TonesCollection/>
+      <CelestialCollection/>
     </div>
   )
 }
