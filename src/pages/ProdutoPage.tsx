@@ -5,11 +5,11 @@ import { cupons } from "../data/cupons";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { PlusCircle } from "lucide-react";
+import { toast } from "sonner";
 
 export function ProdutoPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -19,6 +19,7 @@ export function ProdutoPage() {
   const [cupomInput, setCupomInput] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState<{codigo: string, desconto: number} | null>(null);
   const [mensagemCupom, setMensagemCupom] = useState("");
+  const [selectedSize, setSelectedSize] = useState(""); // Adicione para o tamanho
   const options = [
           { label: "Oversized", value: true },
           { label: "Regular", value: false },
@@ -89,6 +90,33 @@ export function ProdutoPage() {
     return camiseta.preco;
   };
 
+  function handleAddToCart() {
+  if (!selectedSize) {
+    toast.error("Selecione o tamanho!");
+    return;
+  }
+  if (!camiseta) {
+    toast.error("Camiseta não encontrada!");
+    return;
+  }
+  const carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
+  if (carrinho.length >= 3) {
+    toast.error("O carrinho pode conter no máximo 3 itens.");
+    return;
+  }
+  const item = {
+    id: camiseta.id,
+    nome: camiseta.nome,
+    preco: calcularPrecoFinal(),
+    tamanho: selectedSize,
+    cupom: cupomAplicado ? cupomAplicado.codigo : "Nenhum cupom",
+    colecao: camiseta.colecao,
+  };
+  carrinho.push(item);
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  toast.success("Camiseta adicionada ao carrinho!");
+}
+
   if (!camiseta) return <div>Camiseta não encontrada.</div>;
 
   
@@ -138,39 +166,33 @@ export function ProdutoPage() {
         </div>
 
         <div className="mb-2">
-            <Select>
-              <SelectTrigger className="">
-                <SelectValue placeholder="Selecione o tamanho" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Tamanhos</SelectLabel>
-                  <SelectItem value="PP">PP</SelectItem>
-                  <SelectItem value="M">M</SelectItem>
-                  <SelectItem value="G">G</SelectItem>
-                  <SelectItem value="GG">GG</SelectItem>
-                  <SelectItem value="XG">XG</SelectItem>
-                  <SelectItem value="XGG">XGG</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+          <Select onValueChange={setSelectedSize}>
+            <SelectTrigger className="">
+              <SelectValue placeholder="Selecione o tamanho" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Tamanhos</SelectLabel>
+                <SelectItem value="PP">PP</SelectItem>
+                <SelectItem value="M">M</SelectItem>
+                <SelectItem value="G">G</SelectItem>
+                <SelectItem value="GG">GG</SelectItem>
+                <SelectItem value="XG">XG</SelectItem>
+                <SelectItem value="XGG">XGG</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
 
         <SelecionarEstilo/>
 
         <div className="flex items-center">
-         <Dialog>
-            <DialogTrigger className="w-full">
-              <Button className="w-full flex rounded-xl items-center"><PlusCircle className="mt-[1px]"/> Adicionar ao carrinho</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <h1 className="font-bold text-lg">Para concluir</h1>
-                <h2 className="text-muted-foreground">Você será redirecionado ao nosso Instagram, onde pode nos contatar na DM sobre seu pedido.</h2>
-              </DialogHeader>
-                <a href="https://www.instagram.com/tshirtsmkt/" target="_blank"><Button className="w-full">Continuar</Button></a>
-            </DialogContent>
-         </Dialog>
+          <Button
+            className="w-full flex rounded-xl items-center"
+            onClick={handleAddToCart}
+          >
+            <PlusCircle className="mt-[1px]" /> Adicionar ao carrinho
+          </Button>
         </div>
         
         <div className="flex flex-col gap-1 mt-2">

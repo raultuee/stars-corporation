@@ -9,12 +9,12 @@ import { Home } from './pages/home';
 import { LoadingPage } from './utils/loading-page';
 import { ProdutoPage } from './pages/ProdutoPage';
 import { Catalogo } from './pages/catalogo';
-import { Footer } from './pages/ui/footer/footer';
 import { Starboy } from './pages/colecoes/starboy';
 import { Carrinho } from './pages/carrinho';
 import { VerCarrinho } from './pages/ui/box/box';
 import { Celestial } from './pages/colecoes/celestial';
 import { Tones } from './pages/colecoes/tones';
+import { PageFooterWrapper } from './components/wrappers/footer-wrapper';
 export function App() {
 
   return (
@@ -46,7 +46,7 @@ export function App() {
           </Routes>
 
           <VerCarrinho/>
-        <Footer />
+        <PageFooterWrapper />
       </Router>
   </ThemeProvider>
     </>
