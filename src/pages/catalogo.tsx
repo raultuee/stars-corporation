@@ -69,7 +69,7 @@ export function Catalogo() {
                 >
                   <Heart />
                 </Button>
-                <Badge className="ml-2" variant="secondary">
+                <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[camiseta.id] || 0} curtidas
                 </Badge>
               </div>

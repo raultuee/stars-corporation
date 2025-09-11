@@ -114,7 +114,7 @@ function MaisCurtidas() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[top3[current].id] || 0} curtidas
                 </Badge>
             </div>
@@ -168,7 +168,7 @@ function MaisCurtidas() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[card.id] || 0} curtidas
                 </Badge>
             </div>
@@ -267,7 +267,7 @@ function MaisRecentes() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[top3[current].id] || 0} curtidas
                 </Badge>
             </div>
@@ -321,7 +321,7 @@ function MaisRecentes() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[card.id] || 0} curtidas
                 </Badge>
             </div>
@@ -414,7 +414,7 @@ function StarboyCollection() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[starboyItems[current].id] || 0} curtidas
                 </Badge>
             </div>
@@ -561,7 +561,7 @@ function TonesCollection() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[tonesItems[current].id] || 0} curtidas
                 </Badge>
             </div>
@@ -615,7 +615,7 @@ function TonesCollection() {
               >
                 <Heart />
               </Button>
-              <Badge className="ml-2" variant="secondary">
+              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
                   {likes[card.id] || 0} curtidas
                 </Badge>
             </div>
