@@ -110,7 +110,7 @@ export function Carrinho() {
 
                     <Button className="ml-4"><Check/> Finalizar pedido</Button>
 
-                    <div className="flex justify-end mr-[100px] mt-4">
+                    <div className="flex justify-end  md:mr-[100px] lg:mr-[100px] xl:mr-[100px] mt-4">
                        <p className="font-bold text-xl">
                             Total: R$ { 
                                 itens.length === 0 
