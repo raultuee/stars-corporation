@@ -5,12 +5,6 @@ import starboy3Img from "../assets/produtos/starboy3.png";
 import starboy1secImg from "../assets/produtos/starboy1-back.png";
 import starboy2secImg from "../assets/produtos/starboy-2-back.png";
 
-import street1Img from "../assets/produtos/street1.png";
-import street2Img from "../assets/produtos/street2.png";
-
-import street1secImg from "../assets/produtos/street-1-back.png";
-import street2secImg from "../assets/produtos/street-2-back.png";
-
 import tones1Img from "../assets/produtos/tones1.png";
 import tones2Img from "../assets/produtos/tones2.png";
 import tones3Img from "../assets/produtos/tones3.png";
@@ -122,30 +116,30 @@ export const camisetas: Camiseta[] = [
     likes: 0,
     sexo: "Unissex"
   },
-  {
-    id: "4",
-    slug: "street1",
-    nome: "Camiseta Street #1",
-    descricao: "Descrição da camiseta Street #1",
-    preco: 74.90,
-    imagem: street1Img,
-    imagemSec: street1secImg,
-    colecao: "Street",
-    likes: 0,
-    sexo: "Unissex"
-  },
-  {
-    id: "5",
-    slug: "street2",
-    nome: "Camiseta Street #2",
-    descricao: "Descrição da camiseta Street #2",
-    preco: 74.90,
-    imagem: street2Img,
-    imagemSec: street2secImg,
-    colecao: "Street",
-    likes: 0,
-    sexo: "Unissex"
-  },
+  // {
+  //   id: "4",
+  //   slug: "street1",
+  //   nome: "Camiseta Street #1",
+  //   descricao: "Descrição da camiseta Street #1",
+  //   preco: 74.90,
+  //   imagem: street1Img,
+  //   imagemSec: street1secImg,
+  //   colecao: "Street",
+  //   likes: 0,
+  //   sexo: "Unissex"
+  // },
+  // {
+  //   id: "5",
+  //   slug: "street2",
+  //   nome: "Camiseta Street #2",
+  //   descricao: "Descrição da camiseta Street #2",
+  //   preco: 74.90,
+  //   imagem: street2Img,
+  //   imagemSec: street2secImg,
+  //   colecao: "Street",
+  //   likes: 0,
+  //   sexo: "Unissex"
+  // },
   {
     id: "6",
     slug: "tones1",
