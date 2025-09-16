@@ -67,6 +67,21 @@ import celestial3secImg from "../assets/produtos/celestial-3-back.png";
 import angels1Img from "../assets/produtos/angels1.png";
 import angels1secImg from "../assets/produtos/angels-1-back.png";
 
+import coreMayhem from "../assets/produtos/core-mayhem.png";
+import coreMayhemBack from "../assets/produtos/core-mayhem-back.png";
+
+import coreDarkTears from "../assets/produtos/core-mayhem.png";
+import coreDarkTearsBack from "../assets/produtos/core-mayhem-back.png";
+
+import coreScream from "../assets/produtos/core-scream.png";
+import coreScreamBack from "../assets/produtos/core-scream-back.png";
+
+import coreMeandMe from "../assets/produtos/core-meandme.png";
+import coreMeandMeBack from "../assets/produtos/core-meandme-back.png";
+
+import coreExtra from "../assets/produtos/core-extra.png";
+
+
 export type Camiseta = {
   id: string;
   slug: string;
@@ -402,5 +417,65 @@ export const camisetas: Camiseta[] = [
     likes: 0,
     sexo: "Unissex"
   },
+  {
+    id: "29",
+    slug: "core-mayhem",
+    nome: "Camiseta Mayhem",
+    descricao: "",
+    preco: 70.0,
+    imagem: coreMayhem,
+    imagemSec: coreMayhemBack,
+    colecao: "CORE",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "30",
+    slug: "core-darktears",
+    nome: "Camiseta Dark Tears",
+    descricao: "",
+    preco: 70.0,
+    imagem: coreDarkTears,
+    imagemSec: coreDarkTearsBack,
+    colecao: "CORE",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "31",
+    slug: "core-scream",
+    nome: "Camiseta Scream",
+    descricao: "",
+    preco: 70.0,
+    imagem: coreScream,
+    imagemSec: coreScreamBack,
+    colecao: "CORE",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "32",
+    slug: "core-meandme",
+    nome: "Camiseta Me and Me",
+    descricao: "",
+    preco: 70.0,
+    imagem: coreMeandMe,
+    imagemSec: coreMeandMeBack,
+    colecao: "CORE",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "33",
+    slug: "core-extra",
+    nome: "Camiseta Core",
+    descricao: "",
+    preco: 70.0,
+    imagem: coreExtra,
+    colecao: "CORE",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  
   // ...adicione mais camisetas aqui
 ];
