@@ -174,11 +174,11 @@ export function ProdutoPage() {
               <SelectGroup>
                 <SelectLabel>Tamanhos</SelectLabel>
                 <SelectItem value="PP">PP</SelectItem>
+                <SelectItem value="P">P</SelectItem>
                 <SelectItem value="M">M</SelectItem>
                 <SelectItem value="G">G</SelectItem>
                 <SelectItem value="GG">GG</SelectItem>
                 <SelectItem value="XG">XG</SelectItem>
-                <SelectItem value="XGG">XGG</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
