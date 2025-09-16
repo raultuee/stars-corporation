@@ -70,8 +70,8 @@ import angels1secImg from "../assets/produtos/angels-1-back.png";
 import coreMayhem from "../assets/produtos/core-mayhem.png";
 import coreMayhemBack from "../assets/produtos/core-mayhem-back.png";
 
-import coreDarkTears from "../assets/produtos/core-mayhem.png";
-import coreDarkTearsBack from "../assets/produtos/core-mayhem-back.png";
+import coreDarkTears from "../assets/produtos/core-darktears.png";
+import coreDarkTearsBack from "../assets/produtos/core-darktears-back.png";
 
 import coreScream from "../assets/produtos/core-scream.png";
 import coreScreamBack from "../assets/produtos/core-scream-back.png";
