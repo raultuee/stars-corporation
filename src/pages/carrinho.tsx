@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 type CarrinhoItem = {
+    id: number;
     nome: string;
     tamanho: string;
     tipo: "Oversized" | "Regular";
@@ -63,6 +64,49 @@ export function Carrinho() {
     };
 
     const total = itens.length === 0 ? 0 : itens.reduce((acc, item) => acc + item.preco, 0) + 10;
+
+    async function finalizarPedido() {
+        if (itens.length === 0 || !enderecoAdicionado) return;
+
+        // Recupera endereço do localStorage
+        const endereco = JSON.parse(localStorage.getItem("endereco") || "{}");
+
+        // Monta os itens do pedido conforme o model PedidoItem
+        const pedidoItens = itens.map(item => ({
+            camisetaId: item.id, // Certifique-se que o objeto CarrinhoItem tem o campo id
+            quantidade: 1
+        }));
+
+        // Monta o pedido conforme o model Pedido
+        const pedido = {
+            cliente: endereco.nomeDestinatario,
+            itens: pedidoItens,
+            total: itens.reduce((acc, item) => acc + item.preco, 0) + (itens.length > 0 ? 10 : 0),
+            status: "pendente",
+            cupomId: itens[0]?.cupom && itens[0].cupom !== "Nenhum cupom" ? undefined : undefined // ajuste se quiser enviar cupomId
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/pedidos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(pedido)
+            });
+
+            if (response.ok) {
+                toast.success("Pedido enviado com sucesso!");
+                localStorage.removeItem("carrinho");
+                setItens([]);
+            } else {
+                toast.error("Erro ao enviar pedido.");
+            }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (err) {
+            toast.error("Erro de conexão com o servidor.");
+        }
+    }
 
     return (
         <div className="min-h-screen bg-white">
@@ -263,6 +307,7 @@ export function Carrinho() {
                                 <Button 
                                     className="w-full" 
                                     disabled={itens.length === 0 || !enderecoAdicionado}
+                                    onClick={finalizarPedido}
                                 >
                                     <Check className="mr-2 h-4 w-4" />
                                     Finalizar Pedido
