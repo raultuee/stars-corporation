@@ -5,27 +5,54 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Check, House, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 type CarrinhoItem = {
-    id: number;
+    id: string;
+    slug?: string;
     nome: string;
-    tamanho: string;
+    tamanho: "P" | "M" | "G" | "GG";
     tipo: "Oversized" | "Regular";
-    cupom: string;
+    // cupom: boolean;
     preco: number;
 };
 
 type EnderecoForm = {
     cep: string;
-    logradouro: string;
+    rua: string;
     numero: string;
     bairro: string;
     complemento?: string;
     nomeDestinatario: string;
+    telefone: string;
+    formaPagamento: "Cartão" | "PIX" | "Dinheiro";
+};
+
+// O novo tipo de Pedido
+export type Pedido = {
+    data_pedido: Date | string;
+    nome_destinario: string;
+    telefone_contato: string;
+    cep: string;
+    rua: string;
+    numero: number;
+    bairro: string;
+    complemento?: string;
+    forma_pagamento: "Cartão" | "PIX" | "Dinheiro";
+    valor_total: number;
+    // Note que 'itens' agora é uma propriedade com todos os itens do pedido
+    itens: Array<{
+        id_camiseta: string;
+        slug?: string;
+        tamanho: "P" | "M" | "G" | "GG";
+        tipo_camiseta: "Oversized" | "Regular";
+        // cupom: boolean;
+        preco: number;
+    }>;
 };
 
 export function Carrinho() {
@@ -37,7 +64,8 @@ export function Carrinho() {
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
+        setValue,
     } = useForm<EnderecoForm>();
 
     useEffect(() => {
@@ -63,30 +91,41 @@ export function Carrinho() {
         localStorage.setItem("carrinho", JSON.stringify(novoCarrinho));
     };
 
-    const total = itens.length === 0 ? 0 : itens.reduce((acc, item) => acc + item.preco, 0) + 10;
+    const subtotal = itens.reduce((acc, item) => acc + item.preco, 0);
+    const total = subtotal + (itens.length > 0 ? 10 : 0);
 
     async function finalizarPedido() {
         if (itens.length === 0 || !enderecoAdicionado) return;
 
-        // Recupera endereço do localStorage
         const endereco = JSON.parse(localStorage.getItem("endereco") || "{}");
 
-        // Monta os itens do pedido conforme o model PedidoItem
+        // Transforma o array de CarrinhoItem para o novo formato de PedidoItem
         const pedidoItens = itens.map(item => ({
-            camisetaId: item.id, // Certifique-se que o objeto CarrinhoItem tem o campo id
-            quantidade: 1
+            id_camiseta: item.id,
+            slug: item.slug,
+            tamanho: item.tamanho,
+            tipo_camiseta: item.tipo,
+            // cupom: item.cupom,
+            preco: item.preco
         }));
 
-        // Monta o pedido conforme o model Pedido
-        const pedido = {
-            cliente: endereco.nomeDestinatario,
+        // Cria um único objeto de pedido com o array de itens
+        const pedido: Pedido = {
             itens: pedidoItens,
-            total: itens.reduce((acc, item) => acc + item.preco, 0) + (itens.length > 0 ? 10 : 0),
-            status: "pendente",
-            cupomId: itens[0]?.cupom && itens[0].cupom !== "Nenhum cupom" ? undefined : undefined // ajuste se quiser enviar cupomId
+            data_pedido: new Date().toISOString(),
+            nome_destinario: endereco.nomeDestinatario,
+            telefone_contato: endereco.telefone,
+            cep: endereco.cep,
+            rua: endereco.rua,
+            numero: parseInt(endereco.numero),
+            bairro: endereco.bairro,
+            complemento: endereco.complemento,
+            forma_pagamento: endereco.formaPagamento,
+            valor_total: total
         };
 
         try {
+            // Envia um único pedido com todos os itens
             const response = await fetch("http://localhost:3000/pedidos", {
                 method: "POST",
                 headers: {
@@ -96,30 +135,28 @@ export function Carrinho() {
             });
 
             if (response.ok) {
-                toast.success("Pedido enviado com sucesso!");
+                toast.success("Pedido enviado com sucesso! A loja entrará em contato para confirmar a entrega.");
                 localStorage.removeItem("carrinho");
+                localStorage.removeItem("endereco");
                 setItens([]);
+                setEnderecoAdicionado(false);
             } else {
-                toast.error("Erro ao enviar pedido.");
+                toast.error("Erro ao enviar o pedido.");
             }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (err) {
+            console.error(err);
             toast.error("Erro de conexão com o servidor.");
         }
     }
 
     return (
         <div className="min-h-screen bg-white">
-            {/* Container principal responsivo */}
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20">
-                {/* Header */}
                 <div className="mb-8">
                     <h1 className="font-bold text-2xl sm:text-3xl uppercase">Carrinho</h1>
                 </div>
 
-                {/* Layout responsivo */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Coluna dos itens - ocupa 2 colunas em telas grandes */}
                     <div className="lg:col-span-2">
                         <div className="space-y-4">
                             {itens.length === 0 ? (
@@ -140,9 +177,9 @@ export function Carrinho() {
                                                         <Badge variant="default" className="text-xs">
                                                             {item.tipo}
                                                         </Badge>
-                                                        <Badge variant="secondary" className="text-xs">
-                                                            {item.cupom}
-                                                        </Badge>
+                                                        {/* <Badge variant={item.cupom ? "secondary" : "outline"} className="text-xs">
+                                                            {item.cupom ? "Com cupom" : "Sem cupom"}
+                                                        </Badge> */}
                                                     </CardDescription>
                                                 </CardHeader>
                                                 <CardContent className="flex items-center justify-center sm:justify-end pt-3 sm:pt-6 pb-6">
@@ -170,13 +207,11 @@ export function Carrinho() {
                         </div>
                     </div>
 
-                    {/* Coluna do resumo - ocupa 1 coluna em telas grandes */}
                     <div className="lg:col-span-1">
                         <div className="sticky top-4">
                             <Card className="p-6">
                                 <h2 className="font-bold text-xl mb-6">Resumo do Pedido</h2>
                                 
-                                {/* Endereço */}
                                 <div className="mb-6">
                                     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                                         <DialogTrigger asChild>
@@ -185,12 +220,12 @@ export function Carrinho() {
                                                 className="w-full justify-start"
                                             >
                                                 <House className="mr-2 h-4 w-4" />
-                                                {enderecoAdicionado ? "Alterar endereço" : "Adicionar endereço"}
+                                                {enderecoAdicionado ? "Alterar dados" : "Adicionar dados"}
                                             </Button>
                                         </DialogTrigger>
-                                        <DialogContent className="sm:max-w-[425px]">
+                                        <DialogContent className="sm:max-w-[425px] max-h-[80vh] overflow-y-auto">
                                             <DialogHeader>
-                                                <DialogTitle>Adicione seu endereço</DialogTitle>
+                                                <DialogTitle>Dados para entrega</DialogTitle>
                                                 <DialogDescription>
                                                     Os envios serão apenas entregues na cidade de Franca (São Paulo), 
                                                     com a taxa fixa de R$10,00.
@@ -198,6 +233,34 @@ export function Carrinho() {
                                             </DialogHeader>
 
                                             <form onSubmit={handleSubmit(onSubmitEndereco)} className="space-y-4">
+                                                {/* Dados pessoais */}
+                                                <div>
+                                                    <Label htmlFor="nomeDestinatario">Nome do Destinatário *</Label>
+                                                    <Input
+                                                        id="nomeDestinatario"
+                                                        {...register("nomeDestinatario", { required: "Nome é obrigatório" })}
+                                                        className={errors.nomeDestinatario ? "border-red-500" : ""}
+                                                    />
+                                                    {errors.nomeDestinatario && (
+                                                        <p className="text-red-500 text-sm mt-1">{errors.nomeDestinatario.message}</p>
+                                                    )}
+                                                </div>
+
+                                                <div>
+                                                    <Label htmlFor="telefone">Telefone de Contato *</Label>
+                                                    <Input
+                                                        id="telefone"
+                                                        {...register("telefone", { 
+                                                            required: "Telefone é obrigatório",
+                                                        })}
+                                                        className={errors.telefone ? "border-red-500" : ""}
+                                                    />
+                                                    {errors.telefone && (
+                                                        <p className="text-red-500 text-sm mt-1">{errors.telefone.message}</p>
+                                                    )}
+                                                </div>
+
+                                                {/* Endereço */}
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div className="col-span-1">
                                                         <Label htmlFor="cep">CEP *</Label>
@@ -232,14 +295,14 @@ export function Carrinho() {
                                                 </div>
 
                                                 <div>
-                                                    <Label htmlFor="logradouro">Logradouro *</Label>
+                                                    <Label htmlFor="rua">Rua/Logradouro *</Label>
                                                     <Input
-                                                        id="logradouro"
-                                                        {...register("logradouro", { required: "Logradouro é obrigatório" })}
-                                                        className={errors.logradouro ? "border-red-500" : ""}
+                                                        id="rua"
+                                                        {...register("rua", { required: "Rua é obrigatória" })}
+                                                        className={errors.rua ? "border-red-500" : ""}
                                                     />
-                                                    {errors.logradouro && (
-                                                        <p className="text-red-500 text-sm mt-1">{errors.logradouro.message}</p>
+                                                    {errors.rua && (
+                                                        <p className="text-red-500 text-sm mt-1">{errors.rua.message}</p>
                                                     )}
                                                 </div>
 
@@ -264,20 +327,26 @@ export function Carrinho() {
                                                     />
                                                 </div>
 
+                                                {/* Forma de pagamento */}
                                                 <div>
-                                                    <Label htmlFor="nomeDestinatario">Nome do Destinatário *</Label>
-                                                    <Input
-                                                        id="nomeDestinatario"
-                                                        {...register("nomeDestinatario", { required: "Nome é obrigatório" })}
-                                                        className={errors.nomeDestinatario ? "border-red-500" : ""}
-                                                    />
-                                                    {errors.nomeDestinatario && (
-                                                        <p className="text-red-500 text-sm mt-1">{errors.nomeDestinatario.message}</p>
+                                                    <Label htmlFor="formaPagamento">Forma de Pagamento *</Label>
+                                                    <Select onValueChange={(value) => setValue("formaPagamento", value as "Cartão" | "PIX" | "Dinheiro")}>
+                                                        <SelectTrigger className={errors.formaPagamento ? "border-red-500" : ""}>
+                                                            <SelectValue placeholder="Selecione a forma de pagamento" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="PIX">PIX</SelectItem>
+                                                            <SelectItem value="Cartão">Cartão</SelectItem>
+                                                            <SelectItem value="Dinheiro">Dinheiro</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                    {errors.formaPagamento && (
+                                                        <p className="text-red-500 text-sm mt-1">{errors.formaPagamento.message}</p>
                                                     )}
                                                 </div>
 
                                                 <Button type="submit" className="w-full">
-                                                    Confirmar Endereço
+                                                    Confirmar Dados
                                                 </Button>
                                             </form>
                                         </DialogContent>
@@ -286,11 +355,10 @@ export function Carrinho() {
 
                                 <Separator className="mb-6" />
 
-                                {/* Resumo de valores */}
                                 <div className="space-y-2 mb-6">
                                     <div className="flex justify-between text-sm">
                                         <span>Subtotal:</span>
-                                        <span>R$ {itens.reduce((acc, item) => acc + item.preco, 0).toFixed(2)}</span>
+                                        <span>R$ {subtotal.toFixed(2)}</span>
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span>Frete:</span>
@@ -303,7 +371,6 @@ export function Carrinho() {
                                     </div>
                                 </div>
 
-                                {/* Botão finalizar */}
                                 <Button 
                                     className="w-full" 
                                     disabled={itens.length === 0 || !enderecoAdicionado}
@@ -315,7 +382,7 @@ export function Carrinho() {
                                 
                                 {!enderecoAdicionado && itens.length > 0 && (
                                     <p className="text-sm text-gray-500 text-center mt-2">
-                                        Adicione um endereço para finalizar
+                                        Adicione os dados para finalizar
                                     </p>
                                 )}
                             </Card>
