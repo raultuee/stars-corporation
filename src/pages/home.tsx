@@ -642,7 +642,7 @@ function Fornecedores() {
 
 export function Home() {
   return (
-    <div className="min-w-screen min-h-screen flex flex-col gap-10 sm:gap-10 md:gap-20 lg:gap-20 xl:gap-20 bg-white items-center mb-[200px]">
+    <div className="min-w-screen min-h-screen flex flex-col gap-10 sm:gap-10 md:gap-20 lg:gap-20 xl:gap-20 bg-[#FAFAFF] items-center mb-[200px]">
       <Propagandas/>
       <MaisRecentes/>
       <MaisCurtidas/>

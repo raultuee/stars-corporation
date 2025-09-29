@@ -93,6 +93,7 @@ export type Camiseta = {
   colecao?: string;
   likes: number;
   sexo: string;
+  esgotado?: boolean;
 };
 
 export const camisetas: Camiseta[] = [
@@ -273,7 +274,8 @@ export const camisetas: Camiseta[] = [
     imagemSec: starboydlx3secImg,
     colecao: "Starboy Deluxe",
     likes: 0,
-    sexo: "Unissex"
+    sexo: "Unissex",
+    esgotado: true
   },
   
   {
@@ -286,7 +288,8 @@ export const camisetas: Camiseta[] = [
     imagemSec: starboydlx4secImg,
     colecao: "Starboy Deluxe",
     likes: 0,
-    sexo: "Unissex"
+    sexo: "Unissex",
+    esgotado: true
   },
 
   {

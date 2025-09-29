@@ -59,8 +59,9 @@ export function Catalogo() {
                 <Button
                   className="xl:w-[200px]"
                   onClick={() => (window.location.href = `/produto/${camiseta.slug}`)}
+                  disabled={camiseta.esgotado}
                 >
-                  {camiseta.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                  {camiseta.esgotado ? "Esgotado" : camiseta.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </Button>
                 <Button
                   variant={isLiked[camiseta.id] ? "default" : "secondary"}

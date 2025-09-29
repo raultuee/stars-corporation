@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Check, House, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -17,8 +17,8 @@ type CarrinhoItem = {
     nome: string;
     tamanho: "P" | "M" | "G" | "GG";
     tipo: "Oversized" | "Regular";
-    // cupom: boolean;
     preco: number;
+    imagem?: string; // Adicionado para a API
 };
 
 type EnderecoForm = {
@@ -32,33 +32,12 @@ type EnderecoForm = {
     formaPagamento: "Cartão" | "PIX" | "Dinheiro";
 };
 
-// O novo tipo de Pedido
-export type Pedido = {
-    data_pedido: Date | string;
-    nome_destinario: string;
-    telefone_contato: string;
-    cep: string;
-    rua: string;
-    numero: number;
-    bairro: string;
-    complemento?: string;
-    forma_pagamento: "Cartão" | "PIX" | "Dinheiro";
-    valor_total: number;
-    // Note que 'itens' agora é uma propriedade com todos os itens do pedido
-    itens: Array<{
-        id_camiseta: string;
-        slug?: string;
-        tamanho: "P" | "M" | "G" | "GG";
-        tipo_camiseta: "Oversized" | "Regular";
-        // cupom: boolean;
-        preco: number;
-    }>;
-};
-
 export function Carrinho() {
     const [itens, setItens] = useState<CarrinhoItem[]>([]);
     const [enderecoAdicionado, setEnderecoAdicionado] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null);
 
     const {
         register,
@@ -78,10 +57,21 @@ export function Carrinho() {
         }
     }, []);
 
+    // Remove foco dos inputs quando o dialog fecha (corrige erro aria-hidden)
+    useEffect(() => {
+        if (!dialogOpen && formRef.current) {
+            const activeElement = document.activeElement as HTMLElement;
+            if (formRef.current.contains(activeElement)) {
+                activeElement.blur();
+            }
+        }
+    }, [dialogOpen]);
+
     const onSubmitEndereco = (data: EnderecoForm) => {
         localStorage.setItem("endereco", JSON.stringify(data));
         setEnderecoAdicionado(true);
         setDialogOpen(false);
+        toast.success("Dados salvos com sucesso!");
         reset();
     };
 
@@ -92,62 +82,95 @@ export function Carrinho() {
     };
 
     const subtotal = itens.reduce((acc, item) => acc + item.preco, 0);
-    const total = subtotal + (itens.length > 0 ? 10 : 0);
+    const frete = itens.length > 0 ? 10 : 0;
+    const total = subtotal + frete;
 
     async function finalizarPedido() {
-        if (itens.length === 0 || !enderecoAdicionado) return;
-
-        const endereco = JSON.parse(localStorage.getItem("endereco") || "{}");
-
-        // Transforma o array de CarrinhoItem para o novo formato de PedidoItem
-        const pedidoItens = itens.map(item => ({
-            id_camiseta: item.id,
-            slug: item.slug,
-            tamanho: item.tamanho,
-            tipo_camiseta: item.tipo,
-            // cupom: item.cupom,
-            preco: item.preco
-        }));
-
-        // Cria um único objeto de pedido com o array de itens
-        const pedido: Pedido = {
-            itens: pedidoItens,
-            data_pedido: new Date().toISOString(),
-            nome_destinario: endereco.nomeDestinatario,
-            telefone_contato: endereco.telefone,
-            cep: endereco.cep,
-            rua: endereco.rua,
-            numero: parseInt(endereco.numero),
-            bairro: endereco.bairro,
-            complemento: endereco.complemento,
-            forma_pagamento: endereco.formaPagamento,
-            valor_total: total
-        };
-
-        try {
-            // Envia um único pedido com todos os itens
-            const response = await fetch("https://api-stars.onrender.com/pedidos", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(pedido)
-            });
-
-            if (response.ok) {
-                toast.success("Pedido enviado com sucesso! A loja entrará em contato para confirmar a entrega.");
-                localStorage.removeItem("carrinho");
-                localStorage.removeItem("endereco");
-                setItens([]);
-                setEnderecoAdicionado(false);
-            } else {
-                toast.error("Erro ao enviar o pedido.");
-            }
-        } catch (err) {
-            console.error(err);
-            toast.error("Erro de conexão com o servidor.");
-        }
+    if (itens.length === 0 || !enderecoAdicionado) {
+        toast.error("Adicione itens ao carrinho e preencha os dados de entrega");
+        return;
     }
+
+    setLoading(true);
+
+    try {
+        const enderecoStorage = JSON.parse(localStorage.getItem("endereco") || "{}");
+
+        // Validações básicas (já existentes no seu código)
+        if (!enderecoStorage.nomeDestinatario || !enderecoStorage.telefone || !enderecoStorage.cep || !enderecoStorage.rua || !enderecoStorage.numero || !enderecoStorage.bairro || !enderecoStorage.formaPagamento) {
+            toast.error("Por favor, preencha todos os dados de entrega e pagamento.");
+            setLoading(false);
+            return;
+        }
+
+        // ======================= INÍCIO DA CORREÇÃO =======================
+
+        // Monta o objeto no formato CORRETO ("achatado") que a API espera
+        const pedidoFormatado = {
+            // Campos de destinatário
+            nome_destinario: enderecoStorage.nomeDestinatario,
+            telefone_contato: enderecoStorage.telefone,
+
+            // Campos de endereço (diretamente no objeto principal)
+            cep: enderecoStorage.cep.replace(/\D/g, ''), // Remove formatação do CEP
+            rua: enderecoStorage.rua,
+            numero: Number(enderecoStorage.numero), // Garante que o número seja um Number
+            bairro: enderecoStorage.bairro,
+            complemento: enderecoStorage.complemento || "",
+
+            // Campos de pagamento
+            forma_pagamento: enderecoStorage.formaPagamento,
+            valor_total: total, // A variável 'total' já está calculada no componente
+
+            // Mapeia o array de produtos para o formato de 'itens' que o backend espera
+            itens: itens.map(item => ({
+                id_camiseta: item.id,
+                slug: item.slug || item.id,
+                tamanho: item.tamanho,
+                tipo_camiseta: item.tipo, // Mapeia o campo 'tipo' para 'tipo_camiseta'
+                preco: item.preco
+            }))
+        };
+        
+        // ======================== FIM DA CORREÇÃO =========================
+
+        console.log("📦 Enviando pedido formatado para a API:", pedidoFormatado);
+
+        const response = await fetch("http://localhost:3000/pedidos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(pedidoFormatado) // Envia o objeto formatado
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error("❌ Erro da API:", errorData);
+            // Mostra os detalhes do erro de validação, se disponíveis
+            const detalhesErro = errorData.details ? `: ${errorData.details.join(', ')}` : '';
+            throw new Error(errorData.error || `Erro ${response.status}${detalhesErro}`);
+        }
+
+        const resultado = await response.json();
+        console.log("✅ Pedido criado:", resultado);
+
+        toast.success("Pedido enviado com sucesso! A loja entrará em contato para confirmar a entrega.");
+        
+        // Limpa o carrinho e dados
+        localStorage.removeItem("carrinho");
+        localStorage.removeItem("endereco");
+        setItens([]);
+        setEnderecoAdicionado(false);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+        console.error("❌ Erro ao finalizar pedido:", err);
+        toast.error(err.message || "Erro ao enviar o pedido. Tente novamente.");
+    } finally {
+        setLoading(false);
+    }
+}
 
     return (
         <div className="min-h-screen bg-white">
@@ -177,9 +200,6 @@ export function Carrinho() {
                                                         <Badge variant="default" className="text-xs">
                                                             {item.tipo}
                                                         </Badge>
-                                                        {/* <Badge variant={item.cupom ? "secondary" : "outline"} className="text-xs">
-                                                            {item.cupom ? "Com cupom" : "Sem cupom"}
-                                                        </Badge> */}
                                                     </CardDescription>
                                                 </CardHeader>
                                                 <CardContent className="flex items-center justify-center sm:justify-end pt-3 sm:pt-6 pb-6">
@@ -232,7 +252,7 @@ export function Carrinho() {
                                                 </DialogDescription>
                                             </DialogHeader>
 
-                                            <form onSubmit={handleSubmit(onSubmitEndereco)} className="space-y-4">
+                                            <form ref={formRef} onSubmit={handleSubmit(onSubmitEndereco)} className="space-y-4">
                                                 {/* Dados pessoais */}
                                                 <div>
                                                     <Label htmlFor="nomeDestinatario">Nome do Destinatário *</Label>
@@ -330,7 +350,9 @@ export function Carrinho() {
                                                 {/* Forma de pagamento */}
                                                 <div>
                                                     <Label htmlFor="formaPagamento">Forma de Pagamento *</Label>
-                                                    <Select onValueChange={(value) => setValue("formaPagamento", value as "Cartão" | "PIX" | "Dinheiro")}>
+                                                    <Select 
+                                                        onValueChange={(value) => setValue("formaPagamento", value as "Cartão" | "PIX" | "Dinheiro")}
+                                                    >
                                                         <SelectTrigger className={errors.formaPagamento ? "border-red-500" : ""}>
                                                             <SelectValue placeholder="Selecione a forma de pagamento" />
                                                         </SelectTrigger>
@@ -362,7 +384,7 @@ export function Carrinho() {
                                     </div>
                                     <div className="flex justify-between text-sm">
                                         <span>Frete:</span>
-                                        <span>R$ {itens.length > 0 ? "10.00" : "0.00"}</span>
+                                        <span>R$ {frete.toFixed(2)}</span>
                                     </div>
                                     <Separator />
                                     <div className="flex justify-between font-bold text-lg">
@@ -373,11 +395,17 @@ export function Carrinho() {
 
                                 <Button 
                                     className="w-full" 
-                                    disabled={itens.length === 0 || !enderecoAdicionado}
+                                    disabled={itens.length === 0 || !enderecoAdicionado || loading}
                                     onClick={finalizarPedido}
                                 >
-                                    <Check className="mr-2 h-4 w-4" />
-                                    Finalizar Pedido
+                                    {loading ? (
+                                        <>Enviando...</>
+                                    ) : (
+                                        <>
+                                            <Check className="mr-2 h-4 w-4" />
+                                            Finalizar Pedido
+                                        </>
+                                    )}
                                 </Button>
                                 
                                 {!enderecoAdicionado && itens.length > 0 && (

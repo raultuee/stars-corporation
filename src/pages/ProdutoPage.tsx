@@ -173,12 +173,10 @@ export function ProdutoPage() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Tamanhos</SelectLabel>
-                <SelectItem value="PP">PP</SelectItem>
                 <SelectItem value="P">P</SelectItem>
                 <SelectItem value="M">M</SelectItem>
                 <SelectItem value="G">G</SelectItem>
                 <SelectItem value="GG">GG</SelectItem>
-                <SelectItem value="XG">XG</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -204,7 +202,7 @@ export function ProdutoPage() {
               onChange={(e) => setCupomInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && validarCupom()}
             />
-            <Button onClick={validarCupom}>Ativar</Button>
+            <Button disabled onClick={() => {toast.info("Cupons desativados")}}>Ativar</Button>
           </div>
           {mensagemCupom && (
             <p className={`text-sm mt-1 ${
