@@ -136,7 +136,7 @@ export function Carrinho() {
 
         console.log("📦 Enviando pedido formatado para a API:", pedidoFormatado);
 
-        const response = await fetch("http://localhost:3000/pedidos", {
+        const response = await fetch("https://api-stars.onrender.com/pedidos", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
