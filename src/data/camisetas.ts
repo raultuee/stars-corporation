@@ -81,6 +81,32 @@ import coreMeandMeBack from "../assets/produtos/core-meandme-back.png";
 
 import coreExtra from "../assets/produtos/core-extra.png";
 
+import billieEilishImg from "../assets/produtos/billie-eilish.png";
+import billieEilishBackImg from "../assets/produtos/billie-eilish-back.png";
+
+import ladyGagaImg from "../assets/produtos/lady-gaga.png";
+import ladyGagasBackImg from "../assets/produtos/lady-gaga-back.png";
+
+// import choraoImg from "../assets/produtos/chorao.png";
+// import choraoBackImg from "../assets/produtos/chorao-back.png";
+
+import sabotageImg from "../assets/produtos/sabotage.png";
+import sabotageBackImg from "../assets/produtos/sabotage-back.png";
+
+import purpleRainFallstarImg from "../assets/produtos/purplerain-fallstar.png";
+import purpleRainFallstarImgBack from "../assets/produtos/purplerain-fallstar-back.png";
+
+import purpleRainStarboyImg from "../assets/produtos/purplerain-starboy.png";
+import purpleRainStarboyImgBack from "../assets/produtos/purplerain-starboy-back.png";
+
+import TonesRMKBlueImg from "../assets/produtos/tones-rmk-blue.png";
+import TonesRMKBlueBackImg from "../assets/produtos/tones-rmk-blue-back.png";
+
+import TonesRMKGreenImg from "../assets/produtos/tones-rmk-green.png";
+import TonesRMKGreenBackImg from "../assets/produtos/tones-rmk-green-back.png";
+
+import TonesRMKRedImg from "../assets/produtos/tones-rmk-red.png";
+import TonesRMKRedBackImg from "../assets/produtos/tones-rmk-red-back.png";
 
 export type Camiseta = {
   id: string;
@@ -132,30 +158,6 @@ export const camisetas: Camiseta[] = [
     likes: 0,
     sexo: "Unissex"
   },
-  // {
-  //   id: "4",
-  //   slug: "street1",
-  //   nome: "Camiseta Street #1",
-  //   descricao: "Descrição da camiseta Street #1",
-  //   preco: 74.90,
-  //   imagem: street1Img,
-  //   imagemSec: street1secImg,
-  //   colecao: "Street",
-  //   likes: 0,
-  //   sexo: "Unissex"
-  // },
-  // {
-  //   id: "5",
-  //   slug: "street2",
-  //   nome: "Camiseta Street #2",
-  //   descricao: "Descrição da camiseta Street #2",
-  //   preco: 74.90,
-  //   imagem: street2Img,
-  //   imagemSec: street2secImg,
-  //   colecao: "Street",
-  //   likes: 0,
-  //   sexo: "Unissex"
-  // },
   {
     id: "6",
     slug: "tones1",
@@ -476,6 +478,114 @@ export const camisetas: Camiseta[] = [
     preco: 70.0,
     imagem: coreExtra,
     colecao: "CORE",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "34",
+    slug: "billie-eilish",
+    nome: "Camiseta Billie Eilish",
+    descricao: "",
+    preco: 70.0,
+    imagem: billieEilishImg,
+    imagemSec: billieEilishBackImg,
+    colecao: "POP",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "35",
+    slug: "lady-gaga",
+    nome: "Camiseta Lady Gaga",
+    descricao: "",
+    preco: 70.0,
+    imagem: ladyGagaImg,
+    imagemSec: ladyGagasBackImg,
+    colecao: "POP",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "36",
+    slug: "purplerain-fallstar",
+    nome: "Camiseta PurpleRain Fallstar",
+    descricao: "",
+    preco: 70.0,
+    imagem: purpleRainFallstarImg,
+    imagemSec: purpleRainFallstarImgBack,
+    colecao: "PurpleRain",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "37",
+    slug: "purplerain-starboy",
+    nome: "Camiseta PurpleRain Starboy",
+    descricao: "",
+    preco: 70.0,
+    imagem: purpleRainStarboyImg,
+    imagemSec: purpleRainStarboyImgBack,
+    colecao: "PurpleRain",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  // {
+  //   id: "38",
+  //   slug: "chorao",
+  //   nome: "Camiseta Chorão",
+  //   descricao: "",
+  //   preco: 70.0,
+  //   imagem: choraoImg,
+  //   imagemSec: choraoBackImg,
+  //   colecao: "MPB",
+  //   likes: 0,
+  //   sexo: "Unissex"
+  // },
+  {
+    id: "39",
+    slug: "sabotage",
+    nome: "Camiseta Sabotage",
+    descricao: "",
+    preco: 70.0,
+    imagem: sabotageImg,
+    imagemSec: sabotageBackImg,
+    colecao: "MPB",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "40",
+    slug: "tones-rmk-blue",
+    nome: "Camiseta Tones RMK Blue",
+    descricao: "",
+    preco: 75.0,
+    imagem: TonesRMKBlueImg,
+    imagemSec: TonesRMKBlueBackImg,
+    colecao: "Tones RMK",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "41",
+    slug: "tones-rmk-green",
+    nome: "Camiseta Tones RMK Green",
+    descricao: "",
+    preco: 75.0,
+    imagem: TonesRMKGreenImg,
+    imagemSec: TonesRMKGreenBackImg,
+    colecao: "Tones RMK",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "42",
+    slug: "tones-rmk-red",
+    nome: "Camiseta Tones RMK Red",
+    descricao: "",
+    preco: 75.0,
+    imagem: TonesRMKRedImg,
+    imagemSec: TonesRMKRedBackImg,
+    colecao: "Tones RMK",
     likes: 0,
     sexo: "Unissex"
   },

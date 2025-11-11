@@ -387,6 +387,7 @@ export function Header() {
             <a href="/colecoes/starboy"><Button variant="ghost" className="font-semibold">STARBOY <ChevronDown/></Button></a>
             <a href="/colecoes/tones"><Button variant="ghost" className="font-semibold">TONES <ChevronDown/></Button></a>
             <a href="/colecoes/celestial"><Button variant="ghost" className="font-semibold">CELESTIAL <ChevronDown/></Button></a>
+            <a href="/colecoes/retro"><Button variant="ghost" className="font-semibold">RETRÔ <ChevronDown/></Button></a>
             <a href="/catalogo"><Button variant="ghost" className="font-semibold">CATÁLOGO <ChevronDown/></Button></a>
             <a href="/criar-camiseta"><Button variant="ghost" className="font-semibold">CRIE SUA PRÓPRIA CAMISETA <ChevronDown/></Button></a>
           </section>

@@ -2,9 +2,6 @@ import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import { Card } from "@/components/ui/card"
 
-import Banner2 from '../assets/banners/banner2.png'
-import Banner3 from '../assets/banners/banner3.png'
-import Banner4 from '../assets/banners/banner4.png'
 import BannerReturns from '../assets/banners/banner5.png'
 
 import { Button } from "@/components/ui/button"
@@ -29,9 +26,8 @@ function Propagandas() {
   return (
     <div ref={ref} className="keen-slider">
       <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={BannerReturns} alt="Banner 1" /></div>
-      <div className="keen-slider__slide number-slide1 text-center w-full max-h-[550px]"><img src={Banner4} alt="Banner 4" /></div>
-      <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={Banner2} alt="Banner 2" /></div>
-      <div className="keen-slider__slide number-slide3 text-center w-full max-h-[550px]"><img src={Banner3} alt="Banner 3" /></div>
+      <div className="keen-slider__slide number-slide2 text-center w-full max-h-[550px]"><img src={BannerReturns} alt="Banner 2" /></div>
+      <div className="keen-slider__slide number-slide3 text-center w-full max-h-[550px]"><img src={BannerReturns} alt="Banner 3" /></div>
     </div>
   )
 }
@@ -642,7 +638,7 @@ function Fornecedores() {
 
 export function Home() {
   return (
-    <div className="min-w-screen min-h-screen flex flex-col gap-10 sm:gap-10 md:gap-20 lg:gap-20 xl:gap-20 bg-[#FAFAFF] items-center mb-[200px]">
+    <div className="min-w-screen min-h-screen flex flex-col gap-10 sm:gap-10 md:gap-20 lg:gap-20 xl:gap-20 items-center mb-[200px]">
       <Propagandas/>
       <MaisRecentes/>
       <MaisCurtidas/>
