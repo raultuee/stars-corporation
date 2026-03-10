@@ -70,13 +70,13 @@ function MaisCurtidas() {
       <div className="flex items-center justify-center gap-5 sm:hidden">
         <button
           onClick={handlePrev}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Anterior"
         >
           &#8592;
         </button>
         {top3.length > 0 && (
-          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg relative">
+          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 relative">
             <div className="relative w-[220px] h-[220px] mb-4">
               <img
                 src={top3[current].imagem}
@@ -118,7 +118,7 @@ function MaisCurtidas() {
         )}
         <button
           onClick={handleNext}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Próximo"
         >
           &#8594;
@@ -129,7 +129,7 @@ function MaisCurtidas() {
         {top3.map((card) => (
           <Card
             key={card.id}
-            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
+            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105"
           >
             <div className="relative w-[300px] h-[300px] mb-4">
               <img
@@ -155,7 +155,7 @@ function MaisCurtidas() {
                 className="w-[200px]"
                 onClick={() => window.location.href = `/produto/${card.slug}`}
               >
-                {top3[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                {card.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
               </Button>
               <Button
                 variant={isLiked[card.id] ? "default" : "secondary"}
@@ -223,13 +223,13 @@ function MaisRecentes() {
       <div className="flex items-center justify-center gap-5 sm:hidden">
         <button
           onClick={handlePrev}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Anterior"
         >
           &#8592;
         </button>
         {top3.length > 0 && (
-          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg relative">
+          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 relative">
             <div className="relative w-[220px] h-[220px] mb-4">
               <img
                 src={top3[current].imagem}
@@ -271,7 +271,7 @@ function MaisRecentes() {
         )}
         <button
           onClick={handleNext}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Próximo"
         >
           &#8594;
@@ -282,7 +282,7 @@ function MaisRecentes() {
         {top3.map((card) => (
           <Card
             key={card.id}
-            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
+            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105"
           >
             <div className="relative w-[300px] h-[300px] mb-4">
               <img
@@ -370,13 +370,13 @@ function StarboyCollection() {
       <div className="flex items-center justify-center gap-5 sm:hidden">
         <button
           onClick={handlePrev}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Anterior"
         >
           &#8592;
         </button>
         {starboyItems.length > 0 && (
-          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg relative">
+          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 relative">
             <div className="relative w-[220px] h-[220px] mb-4">
               <img
                 src={starboyItems[current].imagem}
@@ -418,7 +418,7 @@ function StarboyCollection() {
         )}
         <button
           onClick={handleNext}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Próximo"
         >
           &#8594;
@@ -429,7 +429,7 @@ function StarboyCollection() {
         {starboyItems.map((card) => (
           <Card
             key={card.id}
-            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
+            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105"
           >
             <div className="relative w-[300px] h-[300px] mb-4">
               <img
@@ -517,13 +517,13 @@ function CelestialCollection() {
       <div className="flex items-center justify-center gap-5 sm:hidden">
         <button
           onClick={handlePrev}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Anterior"
         >
           &#8592;
         </button>
         {celestialItems.length > 0 && (
-          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg relative">
+          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 relative">
             <div className="relative w-[220px] h-[220px] mb-4">
               <img
                 src={celestialItems[current].imagem}
@@ -565,7 +565,7 @@ function CelestialCollection() {
         )}
         <button
           onClick={handleNext}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Próximo"
         >
           &#8594;
@@ -576,7 +576,7 @@ function CelestialCollection() {
         {celestialItems.map((card) => (
           <Card
             key={card.id}
-            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
+            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105"
           >
             <div className="relative w-[300px] h-[300px] mb-4">
               <img
@@ -602,7 +602,7 @@ function CelestialCollection() {
                 className="w-[200px]"
                 onClick={() => window.location.href = `/produto/${card.slug}`}
               >
-                {celestialItems[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                {card.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
               </Button>
               <Button
                 variant={isLiked[card.id] ? "default" : "secondary"}
