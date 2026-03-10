@@ -2,7 +2,7 @@ import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import { Card } from "@/components/ui/card"
 
-import BannerReturns from '../assets/banners/banner5.png'
+import BannerReturns from '../assets/banners/banner6.png'
 
 import { Button } from "@/components/ui/button"
 import { Heart } from "lucide-react"
