@@ -1,10 +1,7 @@
 import { camisetas } from "../data/camisetas";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import { getLikes, setLikes } from "../utils/likes";
+import { CamisetaCard } from "@/components/camiseta-card";
 
 export function Catalogo() {
   const [likes, setLikesState] = useState<Record<string, number>>({});
@@ -29,52 +26,15 @@ export function Catalogo() {
       <div className="flex flex-col items-center justify-center mb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl">
           {camisetas.map((camiseta) => (
-            <Card
-              key={camiseta.id}
-              className="group w-[320px] h-[400px] sm:w-[400px] sm:h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg mx-auto"
-            >
-              <div className="relative w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] mb-4">
-                <img
-                  src={camiseta.imagem}
-                  alt={camiseta.nome}
-                  className={
-                    camiseta.imagemSec
-                      ? "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0"
-                      : "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-100"
-                  }
-                />
-                {camiseta.imagemSec && (
-                  <img
-                    src={camiseta.imagemSec}
-                    alt={camiseta.nome + " costas"}
-                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                  />
-                )}
-              </div>
-              <Badge className="flex justify-center items-center animate-pulse cursor-pointer mb-2">{`Coleção ${camiseta.colecao}`}</Badge>
-              <h2 className="text-xl font-semibold text-center mb-3">
-                {camiseta.nome}
-              </h2>
-              <div className="flex gap-2 items-center">
-                <Button
-                  className="xl:w-[200px]"
-                  onClick={() => (window.location.href = `/produto/${camiseta.slug}`)}
-                  disabled={camiseta.esgotado}
-                >
-                  {camiseta.esgotado ? "Esgotado" : camiseta.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-                </Button>
-                <Button
-                  variant={isLiked[camiseta.id] ? "default" : "secondary"}
-                  onClick={() => handleLike(camiseta.id)}
-                  disabled={isLiked[camiseta.id]}
-                >
-                  <Heart />
-                </Button>
-                <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
-                  {likes[camiseta.id] || 0} curtidas
-                </Badge>
-              </div>
-            </Card>
+            <div key={camiseta.id} className="mx-auto">
+              <CamisetaCard
+                camiseta={camiseta}
+                onLike={handleLike}
+                isLiked={isLiked[camiseta.id] || false}
+                likesCount={likes[camiseta.id] || 0}
+                showBadge={true}
+              />
+            </div>
           ))}
         </div>
       </div>

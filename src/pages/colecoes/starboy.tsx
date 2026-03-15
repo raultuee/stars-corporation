@@ -1,11 +1,8 @@
-import { Button } from '@/components/ui/button';
-import Cartaz from '../../assets/cartazes/starboy.png'
-import { Heart } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { getLikes, setLikes } from '@/utils/likes';
+import Cartaz from '../../assets/cartazes/starboy.png'
+import { getLikes, setLikes as saveLikes } from '@/utils/likes';
 import { camisetas } from '@/data/camisetas';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { CamisetaCard } from '@/components/camiseta-card';
 
 function StarboyCollection() {
   const [likes, setLikesState] = useState<Record<string, number>>({});
@@ -18,12 +15,11 @@ function StarboyCollection() {
 
   function handleLike(id: string) {
     const newLikes = { ...likes, [id]: (likes[id] || 0) + 1 };
-    setLikes(newLikes);
+    saveLikes(newLikes);
     setLikesState(newLikes);
     setIsLiked({ ...isLiked, [id]: true });
   }
 
-  // Ordena as camisetas por likes (decrescente) e pega as 3 mais curtidas
   const starboyItems = [...camisetas]
     .filter(camiseta => camiseta.colecao === "Starboy");
 
@@ -44,117 +40,50 @@ function StarboyCollection() {
       <div className="flex items-center justify-center gap-5 sm:hidden">
         <button
           onClick={handlePrev}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Anterior"
         >
           &#8592;
         </button>
         {starboyItems.length > 0 && (
-          <Card className="group w-[320px] h-[400px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg relative">
-            <div className="relative w-[220px] h-[220px] mb-4">
-              <img
-                src={starboyItems[current].imagem}
-                alt={starboyItems[current].nome}
-                className={
-                  starboyItems[current].imagemSec
-                    ? "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0"
-                    : "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-100"
-                }
-              />
-              {starboyItems[current].imagemSec && (
-                <img
-                  src={starboyItems[current].imagemSec}
-                  alt={starboyItems[current].nome + ' costas'}
-                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                />
-              )}
-            </div>
-            <h2 className="text-xl font-semibold text-center mt-5 mb-5">{starboyItems[current].nome}</h2>
-            <div className="flex gap-2 items-center">
-              <Button
-                className="w-[150px]"
-                onClick={() => window.location.href = `/produto/${starboyItems[current].slug}`}
-              >
-                {starboyItems[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-              </Button>
-              <Button
-                onClick={() => handleLike(starboyItems[current].id)}
-                variant={isLiked[starboyItems[current].id] ? "default" : "secondary"}
-                disabled={isLiked[starboyItems[current].id]}
-              >
-                <Heart />
-              </Button>
-              <Badge className="ml-2 hidden md:block lg:block xl:block" variant="secondary">
-                  {likes[starboyItems[current].id] || 0} curtidas
-                </Badge>
-            </div>
-          </Card>
+          <CamisetaCard
+            camiseta={starboyItems[current]}
+            onLike={handleLike}
+            isLiked={isLiked[starboyItems[current].id] || false}
+            likesCount={likes[starboyItems[current].id] || 0}
+            showBadge={true}
+          />
         )}
         <button
           onClick={handleNext}
-          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300"
+          className="p-2 bg-slate-100 hover:bg-slate-200 transition duration-300"
           aria-label="Próximo"
         >
           &#8594;
         </button>
       </div>
       {/* Desktop: todos os cards */}
-      <div className="hidden sm:flex grid-cols-3 items-center justify-center gap-5">
+      <div className="hidden sm:flex flex-wrap items-center justify-center gap-5">
         {starboyItems.map((card) => (
-          <Card
+          <CamisetaCard
             key={card.id}
-            className="group w-[400px] h-[475px] flex flex-col items-center justify-center transition duration-300 hover:scale-105 hover:shadow-lg"
-          >
-            <div className="relative w-[300px] h-[300px] mb-4">
-              <img
-                src={card.imagem}
-                alt={card.nome}
-                className={
-                  card.imagemSec
-                    ? "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-0"
-                    : "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-100 group-hover:opacity-100"
-                }
-              />
-              {card.imagemSec && (
-                <img
-                  src={card.imagemSec}
-                  alt={card.nome + ' costas'}
-                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                />
-              )}
-            </div>
-            <h2 className="text-xl font-semibold text-center mt-5 mb-5">{card.nome}</h2>
-            <div className="flex gap-2 items-center">
-              <Button
-                className="w-[200px]"
-                onClick={() => window.location.href = `/produto/${card.slug}`}
-              >
-                {starboyItems[current].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
-              </Button>
-              <Button
-                variant={isLiked[card.id] ? "default" : "secondary"}
-                onClick={() => handleLike(card.id)}
-                disabled={isLiked[card.id]}
-              >
-                <Heart />
-              </Button>
-              <Badge className="ml-2 hidden sm:hidden md:block lg:block xl:block" variant="secondary">
-                  {likes[card.id] || 0} curtidas
-                </Badge>
-            </div>
-          </Card>
+            camiseta={card}
+            onLike={handleLike}
+            isLiked={isLiked[card.id] || false}
+            likesCount={likes[card.id] || 0}
+            showBadge={true}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-
 export function Starboy() {
-    return (
-        <div>
-            <img src={Cartaz} alt="" />
-            <StarboyCollection/>
-        </div>
-    )
+  return (
+    <div>
+      <img src={Cartaz} alt="" />
+      <StarboyCollection />
+    </div>
+  )
 }
