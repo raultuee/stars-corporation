@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getLikes } from "../utils/likes";
 import { camisetas } from "../data/camisetas";
 import { cupons } from "../data/cupons";
@@ -12,6 +12,7 @@ import { PlusCircle } from "lucide-react";
 import { toast } from "sonner";
 
 export function ProdutoPage() {
+  const navigate = useNavigate();
   const { slug } = useParams<{ slug: string }>();
   const camiseta = camisetas.find((c) => c.slug === slug);
 
@@ -31,7 +32,7 @@ export function ProdutoPage() {
       <div className="flex gap-3 mb-2">
         {options.map((opt) => (
           <Button
-            className="w-1/2"
+            className="w-1/2 rounded-none transition-all duration-200 ease-in-out"
             key={opt.label}
             variant={selectedEstilo === opt.label ? "default" : "ghost"}
             onClick={() => setSelectedEstilo(opt.label as "Oversized" | "Regular")}
@@ -114,7 +115,12 @@ export function ProdutoPage() {
     };
     carrinho.push(item);
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
-    toast.success("Camiseta adicionada ao carrinho!");
+    toast.success("Camiseta adicionada ao carrinho!", {
+      action: {
+        label: "Ver",
+        onClick: () => navigate("/carrinho"),
+      },
+    });
   }
 
   if (!camiseta) return <div>Camiseta não encontrada.</div>;
@@ -150,8 +156,8 @@ export function ProdutoPage() {
       <div className="flex flex-col justify-center gap-2">
         
         <h1 className="text-3xl font-bold mt-16">{camiseta.nome}</h1>
-        <Badge className="flex justify-center items-center w-full cursor-pointer animate-pulse">{`Coleção ${camiseta.colecao}`}</Badge>
-        <Badge variant="secondary" className="flex justify-center items-center w-full cursor-pointer">{likes} curtidas</Badge>
+        <Badge className="flex justify-center items-center w-full cursor-pointer rounded-none">{`Coleção ${camiseta.colecao}`}</Badge>
+        <Badge variant="secondary" className="flex justify-center items-center w-full cursor-pointer rounded-none">{likes} curtidas</Badge>
         <p className="text-muted-foreground text-sm mt-2">{camiseta.descricao}</p>
         
         {/* Exibição do preço */}
@@ -167,7 +173,7 @@ export function ProdutoPage() {
 
         <div className="mb-2">
           <Select onValueChange={setSelectedSize}>
-            <SelectTrigger className="">
+            <SelectTrigger className="rounded-none">
               <SelectValue placeholder="Selecione o tamanho" />
             </SelectTrigger>
             <SelectContent>
@@ -186,7 +192,7 @@ export function ProdutoPage() {
 
         <div className="flex items-center">
           <Button
-            className="w-full flex rounded-xl items-center"
+            className="w-full flex rounded-none items-center"
             onClick={handleAddToCart}
           >
             <PlusCircle className="mt-[1px]" /> Adicionar ao carrinho

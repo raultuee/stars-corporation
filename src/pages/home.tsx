@@ -15,7 +15,6 @@ import { CamisetaCard } from "@/components/camiseta-card"
 
 function Propagandas() {
   const [ref] = useKeenSlider<HTMLDivElement>({
-    loop: true,
     created(slider) {
       setInterval(() => {
         if (slider) {

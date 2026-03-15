@@ -125,7 +125,7 @@ export function CamisetaCard({
 
         <div className="flex gap-3 items-center px-2">
           <Button
-            className="w-[200px] bg-slate-900 hover:bg-slate-800 text-white font-semibold border-0"
+            className="w-[200px] rounded-sm text-white font-semibold border-0"
             onClick={handleNavigate}
             disabled={camiseta.esgotado}
           >

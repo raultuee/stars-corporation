@@ -85,7 +85,7 @@ module.exports = {
   			'accordion-up': 'accordion-up 0.2s ease-out'
   		},
       fontFamily: {
-        sans: ['Figtree', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Bricolage Grotesque', 'ui-sans-serif', 'system-ui', 'sans-serif'],
 		title: ['Edu VIC WA NT Hand', 'cursive'],
         // Você pode adicionar outras famílias se quiser, ex: mono, serif...
       },
