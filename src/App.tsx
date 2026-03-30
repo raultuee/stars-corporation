@@ -22,7 +22,7 @@ export function App() {
 
     <>
 
-  <ThemeProvider storageKey='sym' defaultTheme='dark'>
+  <ThemeProvider storageKey='stars' defaultTheme='dark'>
     <Toaster position='top-center' className='bg-[#171717]' />
       <Router>
         <Header />

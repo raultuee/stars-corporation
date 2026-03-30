@@ -55,7 +55,7 @@ export function CamisetaCard({
         </div>
 
         {showBadge && camiseta.colecao && (
-          <Badge className="flex justify-center items-center animate-pulse cursor-pointer mb-2 border-0 bg-slate-900 text-white">
+          <Badge className="flex justify-center items-center animate-pulse cursor-pointer border-0 bg-black text-white rounded-none">
             {`Coleção ${camiseta.colecao}`}
           </Badge>
         )}
@@ -66,7 +66,7 @@ export function CamisetaCard({
 
         <div className="flex gap-2 items-center px-2">
           <Button
-            className="w-[140px] bg-slate-900 hover:bg-slate-800 text-white font-semibold border-0"
+            className="w-[140px] bg-black hover:bg-black text-white font-semibold border-0 rounded-none"
             onClick={handleNavigate}
             disabled={camiseta.esgotado}
           >
@@ -82,7 +82,7 @@ export function CamisetaCard({
             onClick={handleLike}
             disabled={isLiked}
             size="icon"
-            className="border-0"
+            className="border-0 rounded-none"
           >
             <Heart />
           </Button>
@@ -114,18 +114,18 @@ export function CamisetaCard({
         </div>
 
         {showBadge && camiseta.colecao && (
-          <Badge className="flex justify-center items-center animate-pulse cursor-pointer mb-2 border-0 bg-slate-900 text-white">
+          <Badge className="flex justify-center items-center animate-pulse cursor-pointer border-0 bg-black text-white rounded-none">
             {`Coleção ${camiseta.colecao}`}
           </Badge>
         )}
 
-        <h2 className="text-xl font-bold text-center mt-5 mb-5 px-2 line-clamp-2">
+        <h2 className="text-xl font-bold text-center mt-3 mb-5 px-2 line-clamp-2">
           {camiseta.nome}
         </h2>
 
         <div className="flex gap-3 items-center px-2">
           <Button
-            className="w-[200px] rounded-sm text-white font-semibold border-0"
+            className="w-[200px] rounded-none text-white font-semibold border-0"
             onClick={handleNavigate}
             disabled={camiseta.esgotado}
           >
@@ -141,7 +141,7 @@ export function CamisetaCard({
             onClick={handleLike}
             disabled={isLiked}
             size="icon"
-            className="border-0"
+            className="border-0 rounded-none"
           >
             <Heart />
           </Button>

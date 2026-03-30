@@ -108,6 +108,9 @@ import TonesRMKGreenBackImg from "../assets/produtos/tones-rmk-green-back.png";
 import TonesRMKRedImg from "../assets/produtos/tones-rmk-red.png";
 import TonesRMKRedBackImg from "../assets/produtos/tones-rmk-red-back.png";
 
+import StbSwag1 from "../assets/produtos/stbswag1.png";
+import StbSwag2 from "../assets/produtos/stbswag2.png";
+
 export type Camiseta = {
   id: string;
   slug: string;
@@ -586,6 +589,18 @@ export const camisetas: Camiseta[] = [
     imagem: TonesRMKRedImg,
     imagemSec: TonesRMKRedBackImg,
     colecao: "Tones RMK",
+    likes: 0,
+    sexo: "Unissex"
+  },
+  {
+    id: "43",
+    slug: "stb-swag",
+    nome: "Camiseta Starboy #SWAG",
+    descricao: "",
+    preco: 75.0,
+    imagem: StbSwag1,
+    imagemSec: StbSwag2,
+    colecao: "SWAG",
     likes: 0,
     sexo: "Unissex"
   },

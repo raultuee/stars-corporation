@@ -331,7 +331,7 @@ export function Header() {
         <div 
           className={`
             ${isUnstuck ? 'fixed' : 'sticky'} 
-            top-0 z-50 flex flex-col justify-center items-center w-full bg-[#141414] border-b border-neutral-800
+            top-0 z-50 flex flex-col justify-center items-center w-full bg-[#101113] border-b border-neutral-800
             transition-all duration-500 ease-out
             ${isUnstuck 
               ? 'shadow-2xl backdrop-blur-sm bg-[#141414]/95' 
@@ -356,7 +356,7 @@ export function Header() {
             <div className="flex items-center justify-center relative" ref={searchRef}>
               <div className="relative">
                 <Input 
-                  className="w-[500px] h-[40px] ml-5 mr-5 bg-[#2A2B2A] border-[#141414] text-white" 
+                  className="w-[500px] h-[40px] ml-5 mr-5 rounded-none bg-[#2A2B2A] border-[#141414] text-white" 
                   placeholder="Procure por camisetas..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -376,7 +376,7 @@ export function Header() {
                   />
                 </div>
               </div>
-              <Button className="w-9 h-9 bg-[#2A2B2A]" onClick={handleSearch}>
+              <Button className="w-9 h-9 bg-[#2A2B2A] rounded-none" onClick={handleSearch}>
                 <Search color="white" />
               </Button>
             </div>
@@ -384,12 +384,12 @@ export function Header() {
             </div>
           </section>
           <section className="text-white mb-4 flex gap-3">
-            <a href="/colecoes/starboy"><Button variant="ghost" className="font-semibold">STARBOY <ChevronDown/></Button></a>
-            <a href="/colecoes/tones"><Button variant="ghost" className="font-semibold">TONES <ChevronDown/></Button></a>
-            <a href="/colecoes/celestial"><Button variant="ghost" className="font-semibold">CELESTIAL <ChevronDown/></Button></a>
-            <a href="/colecoes/retro"><Button variant="ghost" className="font-semibold">RETRÔ <ChevronDown/></Button></a>
-            <a href="/catalogo"><Button variant="ghost" className="font-semibold">CATÁLOGO <ChevronDown/></Button></a>
-            <a href="/criar-camiseta"><Button variant="ghost" className="font-semibold">CRIE SUA PRÓPRIA CAMISETA <ChevronDown/></Button></a>
+            <a href="/colecoes/starboy"><Button variant="ghost" className="font-semibold rounded-none">STARBOY <ChevronDown/></Button></a>
+            <a href="/colecoes/tones"><Button variant="ghost" className="font-semibold rounded-none">TONES <ChevronDown/></Button></a>
+            <a href="/colecoes/celestial"><Button variant="ghost" className="font-semibold rounded-none">CELESTIAL <ChevronDown/></Button></a>
+            <a href="/colecoes/retro"><Button variant="ghost" className="font-semibold rounded-none">RETRÔ <ChevronDown/></Button></a>
+            <a href="/catalogo"><Button variant="ghost" className="font-semibold rounded-none">CATÁLOGO <ChevronDown/></Button></a>
+            <a href="/criar-camiseta"><Button variant="ghost" className="font-semibold rounded-none">CRIE SUA PRÓPRIA CAMISETA <ChevronDown/></Button></a>
           </section>
         </div>
       </div>
